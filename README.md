@@ -1,2 +1,2 @@
 # DeGreen
-tanam ubi
+tanam ubi tak perlu dibaja
