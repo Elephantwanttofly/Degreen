@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.capstone.degreen.R
-import com.capstone.degreen.ui.autent.LoginActivity
+import com.capstone.degreen.ui.autent.login.LoginActivity
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
