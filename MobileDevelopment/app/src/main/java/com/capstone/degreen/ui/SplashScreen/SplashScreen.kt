@@ -21,7 +21,7 @@ class SplashScreen : AppCompatActivity() {
             startActivity(intent)
             finish()
 
-        }, 900L)
+        }, 1000L)
 
     }
 }
