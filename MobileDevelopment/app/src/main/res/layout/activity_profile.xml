@@ -6,4 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileActivity">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewprofile"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/logo_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.21">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:id="@+id/tvname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Rizky"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewprofile"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/btn_aboutus"
+        android:layout_width="150dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="44dp"
+        android:drawableLeft="@drawable/baseline_info_24"
+        android:text="About us"
+        app:layout_constraintTop_toBottomOf="@+id/tvname"
+        tools:layout_editor_absoluteX="130dp"
+        android:backgroundTint="@color/green_primary"/>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="150dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/green_primary"
+        android:drawableLeft="@drawable/baseline_logout_24"
+        android:text="Log out"
+        app:layout_constraintTop_toBottomOf="@+id/btn_aboutus"
+        tools:layout_editor_absoluteX="130dp" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
