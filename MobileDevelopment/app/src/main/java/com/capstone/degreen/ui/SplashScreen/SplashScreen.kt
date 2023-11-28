@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.capstone.degreen.R
-import com.capstone.degreen.ui.LoginActivity
+import com.capstone.degreen.ui.autent.LoginActivity
 
 class SplashScreen : AppCompatActivity() {
 
@@ -21,7 +21,7 @@ class SplashScreen : AppCompatActivity() {
             startActivity(intent)
             finish()
 
-        }, 1500L)
+        }, 1700L)
 
     }
 }

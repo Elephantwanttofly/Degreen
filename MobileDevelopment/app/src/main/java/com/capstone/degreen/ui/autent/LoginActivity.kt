@@ -1,4 +1,4 @@
-package com.capstone.degreen.ui
+package com.capstone.degreen.ui.autent
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
