@@ -13,7 +13,10 @@
         android:theme="@style/Theme.DeGreen"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreen.SplashScreen"
+            android:name=".ui.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SplashScreen.SplashScreen"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

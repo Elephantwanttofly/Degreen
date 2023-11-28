@@ -1,4 +1,4 @@
-package com.capstone.degreen.SplashScreen
+package com.capstone.degreen.ui.SplashScreen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
