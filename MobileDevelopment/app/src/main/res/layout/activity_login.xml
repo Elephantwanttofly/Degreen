@@ -79,15 +79,6 @@
             android:background="@drawable/corner"
             android:layout_marginTop="20dp"/>
 
-        <TextView
-            android:id="@+id/forgot_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/black"
-            android:text="Forgot Password?"
-            android:textAlignment="textEnd" />
-
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
@@ -113,10 +104,8 @@
             android:textAlignment="center"
             android:textColor="@color/green_primary"
             android:textStyle="bold" />
-        
+
 
     </LinearLayout>
-
-
 
 </RelativeLayout>

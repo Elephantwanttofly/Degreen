@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="30dp"
-    tools:context=".ui.autent.regist.RegisterActivity">
+    android:background="@drawable/background"
+    tools:context=".ui.autent.login.LoginActivity">
+
 
 
     <LinearLayout
@@ -26,10 +28,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.333"
-            android:elevation="9dp">
+            android:elevation="20dp">
 
         </de.hdodenhof.circleimageview.CircleImageView>
-
 
         <TextView
             android:layout_width="match_parent"
@@ -47,7 +48,7 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textAlignment="center"
-            android:layout_marginBottom="40dp"/>
+            android:layout_marginBottom="15dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -58,31 +59,34 @@
             android:textAlignment="center"
             android:textColor="@color/green_primary"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/edt_name_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
+            android:layout_height="50dp"
+            android:hint="  Name"
             android:inputType="textEmailAddress"
-            />
+            android:background="@drawable/corner"
+            android:layout_marginTop="20dp"/>
 
         <EditText
             android:id="@+id/edt_email_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
+            android:layout_height="50dp"
+            android:hint="  Email"
             android:inputType="textEmailAddress"
-            />
+            android:background="@drawable/corner"
+            android:layout_marginTop="20dp"/>
 
         <EditText
             android:id="@+id/edt_password_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
+            android:layout_height="50dp"
+            android:hint="  Password"
             android:inputType="textPassword"
-            />
+            android:background="@drawable/corner"
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/btn_register"
@@ -95,7 +99,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:backgroundTint="@color/black"
             android:text="Already Have Account?"
             android:textAlignment="center" />
@@ -105,10 +109,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
-            android:text="Login"
+            android:text="Login Here"
             android:textAlignment="center"
             android:textColor="@color/green_primary"
             android:textStyle="bold" />
+
 
     </LinearLayout>
 
