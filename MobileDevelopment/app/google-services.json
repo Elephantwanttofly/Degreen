@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "613335709031",
+    "firebase_url": "https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "degreen-project-capstone",
+    "storage_bucket": "degreen-project-capstone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613335709031:android:dbdc9f01c9b4136bbb2bc2",
+        "android_client_info": {
+          "package_name": "com.capstone.degreen"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiLROmyhCa0UqRUbdrIabFqb8pfWHCs_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
