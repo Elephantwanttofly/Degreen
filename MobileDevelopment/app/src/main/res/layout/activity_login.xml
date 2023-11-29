@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="30dp"
+    android:background="@drawable/background"
     tools:context=".ui.autent.login.LoginActivity">
 
 
@@ -27,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.333"
-            android:elevation="5dp">
+            android:elevation="20dp">
 
         </de.hdodenhof.circleimageview.CircleImageView>
 
@@ -63,17 +64,29 @@
         <EditText
             android:id="@+id/edt_email_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"/>
+            android:layout_height="50dp"
+            android:hint="  Email"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/corner"
+            android:layout_marginTop="20dp"/>
 
         <EditText
             android:id="@+id/edt_password_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"/>
+            android:layout_height="50dp"
+            android:hint="  Password"
+            android:inputType="textPassword"
+            android:background="@drawable/corner"
+            android:layout_marginTop="20dp"/>
 
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/black"
+            android:text="Forgot Password?"
+            android:textAlignment="textEnd" />
 
         <Button
             android:id="@+id/btn_login"
@@ -86,7 +99,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:backgroundTint="@color/black"
             android:text="New User?"
             android:textAlignment="center" />
@@ -100,6 +113,7 @@
             android:textAlignment="center"
             android:textColor="@color/green_primary"
             android:textStyle="bold" />
+        
 
     </LinearLayout>
 
