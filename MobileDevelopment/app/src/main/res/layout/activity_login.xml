@@ -26,7 +26,8 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.333">
+            app:layout_constraintVertical_bias="0.333"
+            android:elevation="5dp">
 
         </de.hdodenhof.circleimageview.CircleImageView>
 
@@ -64,16 +65,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/edt_password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"/>
+            android:inputType="textPassword"/>
 
 
         <Button
