@@ -22,6 +22,9 @@
             android:name=".ui.autent.login.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.autent.regist.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
