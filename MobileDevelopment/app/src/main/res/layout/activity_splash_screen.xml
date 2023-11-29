@@ -18,7 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333"
         android:elevation="9dp">
-
     </de.hdodenhof.circleimageview.CircleImageView>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A soil classification application"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="400dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
