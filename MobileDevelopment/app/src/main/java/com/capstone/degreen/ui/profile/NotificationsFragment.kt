@@ -1,4 +1,4 @@
-package com.capstone.degreen.ui.notifications
+package com.capstone.degreen.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater

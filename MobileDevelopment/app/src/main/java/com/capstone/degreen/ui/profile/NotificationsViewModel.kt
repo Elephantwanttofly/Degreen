@@ -1,4 +1,4 @@
-package com.capstone.degreen.ui.notifications
+package com.capstone.degreen.ui.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

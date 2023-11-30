@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileActivity">
-
+    tools:context=".ui.profile.NotificationsFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageViewprofile"
@@ -55,8 +54,5 @@
         android:text="Log out"
         app:layout_constraintTop_toBottomOf="@+id/btn_aboutus"
         tools:layout_editor_absoluteX="130dp" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
