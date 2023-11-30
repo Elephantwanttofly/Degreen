@@ -13,6 +13,10 @@
         android:theme="@style/Theme.DeGreen"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main" />
+        <activity
             android:name=".ui.aboutus.AboutUsActivity"
             android:exported="false" />
         <activity
@@ -23,9 +27,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.autent.regist.RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SplashScreen.SplashScreenActivity"
