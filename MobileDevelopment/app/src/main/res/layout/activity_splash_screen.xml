@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.SplashScreen.SplashScreenActivity">
 
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/logosp"
         android:layout_width="200dp"

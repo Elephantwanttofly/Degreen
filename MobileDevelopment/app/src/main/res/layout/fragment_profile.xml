@@ -41,6 +41,8 @@
         android:drawableLeft="@drawable/baseline_info_24"
         android:text="About us"
         app:layout_constraintTop_toBottomOf="@+id/tvname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteX="130dp"
         android:backgroundTint="@color/green_primary"/>
 
@@ -53,6 +55,8 @@
         android:drawableLeft="@drawable/baseline_logout_24"
         android:text="Log out"
         app:layout_constraintTop_toBottomOf="@+id/btn_aboutus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteX="130dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

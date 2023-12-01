@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.capstone.degreen.ui.profile.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:name="com.capstone.degreen.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
