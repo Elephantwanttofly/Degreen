@@ -28,6 +28,7 @@
         android:clickable="true"
         android:contentDescription="@string/camera_access"
         android:focusable="true"
+        android:backgroundTint="@color/green_primary"
         app:layout_anchor="@id/nav_view"
         app:layout_anchorGravity="top|center"
         app:srcCompat="@drawable/baseline_photo_camera_24" />
