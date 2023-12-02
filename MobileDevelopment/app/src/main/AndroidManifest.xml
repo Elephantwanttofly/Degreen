@@ -27,6 +27,9 @@
             android:name=".ui.aboutUs.AboutUsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.ResultClassification"
+            android:exported="false" />
+        <activity
             android:name=".ui.camera.CameraActivity"
             android:exported="false" />
         <activity

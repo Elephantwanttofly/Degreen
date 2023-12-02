@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.capstone.degreen.databinding.ActivityCameraBinding
+import com.capstone.degreen.ui.ResultClassification
 
 class CameraActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCameraBinding.inflate(layoutInflater)}
@@ -43,7 +44,8 @@ class CameraActivity : AppCompatActivity() {
 
         binding.cameraButton.setOnClickListener{startCamera()}
         binding.classificationButton.setOnClickListener{
-
+            val intent = Intent(this@CameraActivity, ResultClassification::class.java)
+            startActivity(intent)
         }
     }
 
