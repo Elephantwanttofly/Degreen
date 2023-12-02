@@ -1,5 +1,6 @@
 package com.capstone.degreen.ui
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.degreen.R
 import com.capstone.degreen.databinding.ActivityMainBinding
+import com.capstone.degreen.ui.camera.CameraActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +26,12 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         navView.setupWithNavController(navController)
+
+        binding.fabCamera.setOnClickListener { intentCamera() }
     }
 
+    private fun intentCamera(){
+        val intent = Intent(this@MainActivity, CameraActivity::class.java)
+        startActivity(intent)
+    }
 }

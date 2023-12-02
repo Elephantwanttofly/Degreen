@@ -7,6 +7,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_profile">Profile</string>
     <string name="camera_access">Kamera Akses</string>
+    <string name="camera">Kamera</string>
+    <string name="classification">Klasifikasi</string>
     <string name="searchbar_hint">Temukan Produk</string>
     <string name="Welcome">Selamat Datang </string>
     <string name="name">Fiki Ardiansyah</string>
