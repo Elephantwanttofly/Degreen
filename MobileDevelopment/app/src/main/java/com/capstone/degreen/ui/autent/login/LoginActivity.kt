@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import com.capstone.degreen.MainActivity
+import com.capstone.degreen.ui.MainActivity
 import com.capstone.degreen.databinding.ActivityLoginBinding
 import com.capstone.degreen.ui.autent.regist.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth

@@ -11,5 +11,45 @@
     <string name="Welcome">Selamat Datang </string>
     <string name="name">Fiki Ardiansyah</string>
     <string name="product_recom">Rekomendasi Produk</string>
-
+    <string name="semangka">Semangka</string>
+    <string name="plant">Tanaman : </string>
+    <string name="plant_name">Nanas</string>
+    <string name="description">Deskripsi : </string>
+    <string name="desc_plant">Nanas adalah tanaman</string>
+    <string name="aluvial">https://cdn.idntimes.com/content-images/community/2022/12/glen-carrie-ib1jujyqob4-unsplash-easy-resizecom-1b6d1cd853484267ae86171b72dde9ea-203cacbc16e5ed7f1ba584dace0e1f12_600x400.jpg</string>
+    <string name="aluvial_soil">Tanah Aluvial</string>
+    <string name="aluvial_soil_is">Tanah Aluvial adalah</string>
+    <string-array name="data_name">
+        <item>Bibit Semangka</item>
+        <item>Bibit Jeruk</item>
+        <item>Bibit Pepaya</item>
+        <item>Bibit Singkong</item>
+        <item>Bibit Tebu</item>
+        <item>Bibit Gandum</item>
+        <item>Bibit Jagung</item>
+        <item>Bibit Palawija</item>
+        <item>Bibit Kedelai</item>
+    </string-array>
+    <string-array name="data_photo">
+        <item>https://asset.kompas.com/crops/PSPS666vIqUHtpIe7YG6r9X0S_Q=/100x67:900x600/750x500/data/photo/2022/10/17/634d8234585f9.jpg</item>
+        <item>https://dwu32cgxelq1c.cloudfront.net/local_newspapers/sites/71/2015/12/citrus-tree.jpg</item>
+        <item>https://www.konteks.co.id/wp-content/uploads/2023/03/Mitos-Menanam-Pohon-Pepaya.png</item>
+        <item>https://www.biotifor.or.id/wp-content/uploads/2023/07/maxresdefault.jpeg</item>
+        <item>https://lenteradesa.id/api/v1/assets/article/Cara-Merawat-Ratoon-Tebu_1656460438.jpg</item>
+        <item>https://cdn.sariagri.id/7/6/7/0/6/76706.jpg</item>
+        <item>https://e-investment.batubarakab.go.id/storage/kpju/XyJruj1lsyUmqGF3EZB5LbRzJkqhlJZtB6qgDkgQ.jpg</item>
+        <item>https://i0.wp.com/media.dekoruma.com/article/2021/06/08192500/pwj4-jenis-tanaman-palawija-singkong.jpg</item>
+        <item>https://bibitbunga.com/wp-content/uploads/2016/03/kacang-kedelai.jpg</item>
+    </string-array>
+    <string-array name="data_description">
+        <item>Semangka</item>
+        <item>Jeruk</item>
+        <item>Pepaya</item>
+        <item>Singkong</item>
+        <item>Tebu</item>
+        <item>Gandum</item>
+        <item>Jagung</item>
+        <item>Palawija</item>
+        <item>Kedelai</item>
+    </string-array>
 </resources>
