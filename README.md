@@ -6,3 +6,5 @@ DeGreen is an innovative app designed for public use, offering a soil detection 
 * [CloudComputing](https://github.com/Elephantwanttofly/Degreen/tree/main/CloudComputing)
 * [MachineLearning](https://github.com/Elephantwanttofly/Degreen/tree/main/MachineLearning)
 * [MobileDevelopment](https://github.com/Elephantwanttofly/Degreen/tree/main/MobileDevelopment)
+</br>
+![Main]([https://media.giphy.com/media/wKoPDy4mp8Lr6IJ9ce/giphy.gif])
