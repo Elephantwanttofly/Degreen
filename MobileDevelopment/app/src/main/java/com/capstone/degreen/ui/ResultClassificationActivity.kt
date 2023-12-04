@@ -1,17 +1,17 @@
 package com.capstone.degreen.ui
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.capstone.degreen.R
 import com.capstone.degreen.data.DataPlant
 import com.capstone.degreen.databinding.ActivityResultClassificationBinding
 import com.capstone.degreen.ui.adapter.ListPlantAdapter
 
-class ResultClassification : AppCompatActivity() {
+class ResultClassificationActivity : AppCompatActivity() {
     private val binding by lazy{ ActivityResultClassificationBinding.inflate(layoutInflater)}
     private val list = ArrayList<DataPlant>()
     private lateinit var rvplant : RecyclerView
@@ -21,11 +21,10 @@ class ResultClassification : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val imageUriString = intent.getStringExtra(EXTRA_PHOTO)
         imgPhoto = binding.ivResult
-        val dataPhoto = resources.getString(R.string.aluvial)
-        Glide.with(this)
-            .load(dataPhoto)
-            .into(imgPhoto)
+        val imageUri = Uri.parse(imageUriString)
+        imgPhoto.setImageURI(imageUri)
 
         rvplant = binding.rvPlant
         rvplant.setHasFixedSize(true)

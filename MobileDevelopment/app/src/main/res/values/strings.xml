@@ -24,6 +24,7 @@
     <string name="aluvial">https://cdn.idntimes.com/content-images/community/2022/12/glen-carrie-ib1jujyqob4-unsplash-easy-resizecom-1b6d1cd853484267ae86171b72dde9ea-203cacbc16e5ed7f1ba584dace0e1f12_600x400.jpg</string>
     <string name="aluvial_soil">Tanah Aluvial</string>
     <string name="aluvial_soil_is">Tanah Aluvial adalah</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu</string>
     <string-array name="data_name">
         <item>Bibit Semangka</item>
         <item>Bibit Jeruk</item>
