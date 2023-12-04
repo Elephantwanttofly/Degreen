@@ -3,6 +3,6 @@
 # **DeGreen**
 DeGreen is an innovative app designed for public use, offering a soil detection feature simplifying plant selection. Users can effortlessly identify suitable plants for their soil type by simply capturing a photo using the in-app camera. This tool streamlines the process, aiding users in making informed planting decisions based on soil analysis.
 </br>
-* [CloudComputing](https://github.com/Elephantwanttofly/Degreen/tree/main/CloudComputing)https://github.com/Elephantwanttofly/Degreen/tree/main/CloudComputing
-* [MachineLearning](https://github.com/Elephantwanttofly/Degreen/tree/main/MachineLearning)https://github.com/Elephantwanttofly/Degreen/tree/main/MachineLearning
-* [MobileDevelopment](https://github.com/Elephantwanttofly/Degreen/tree/main/MobileDevelopment)https://github.com/Elephantwanttofly/Degreen/tree/main/MobileDevelopment
+* [CloudComputing](https://github.com/Elephantwanttofly/Degreen/tree/main/CloudComputing)
+* [MachineLearning](https://github.com/Elephantwanttofly/Degreen/tree/main/MachineLearning)
+* [MobileDevelopment](https://github.com/Elephantwanttofly/Degreen/tree/main/MobileDevelopment)
