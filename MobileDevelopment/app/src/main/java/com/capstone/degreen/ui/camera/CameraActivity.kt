@@ -48,8 +48,11 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun startCamera() {
-        currentImageUri = getImageUri(this)
-        launcherIntentCamera.launch(currentImageUri)
+        if (currentImageUri == null) {
+            currentImageUri = getImageUri(this)
+            launcherIntentCamera.launch(currentImageUri)
+        }
+
     }
 
     private val launcherIntentCamera = registerForActivityResult(
@@ -57,6 +60,9 @@ class CameraActivity : AppCompatActivity() {
     ) { isSuccess ->
         if (isSuccess) {
             showImage()
+        } else{
+            currentImageUri = null
+            showToast(getString(R.string.empty_image_warning))
         }
     }
 

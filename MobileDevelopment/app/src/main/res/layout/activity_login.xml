@@ -85,6 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/green_primary"
+            android:background="@drawable/corner_button"
             android:text="Login" />
 
         <TextView
