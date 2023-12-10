@@ -17,12 +17,13 @@ app.config['LABELS_FILE'] = 'labels.txt'
 
 cred = credentials.Certificate('C:\\Users\\Lenovo\\AppData\\Local\\Programs\\degreen-project-capstone-firebase-adminsdk-k7s32-dab5bf5bc6.json')
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'  
+    'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'  # Ganti dengan URL database Firebase Anda
 })
 firebase_ref = db.reference('/predictions')
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
+def allowed_image(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
 
 model = load_model(app.config['MODEL_FILE'], compile=False)
 with open(app.config['LABELS_FILE'], 'r') as file:
@@ -51,7 +52,6 @@ def index():
     }), 200
 
 # API TYPES OF PLANTS
-
 @app.route('/plants', methods=['GET'])
 def get_all_plants():
     plants_ref = db.reference('jenis_tanaman')
@@ -82,7 +82,7 @@ def plant_detail(plant_id):
     if plant_data:
         if data_requested in ['deskripsi_tanaman', 'id_tanaman', 'nama', 'url_gambar', 'url_produk']:
             response_data = plant_data.get(data_requested)
-            return jsonify({
+            return jsonify({ 
                 "status": {
                     "code": 200,
                     "message": f"Success get {data_requested} based on ID"
@@ -112,6 +112,49 @@ def plant_detail(plant_id):
             }
         }), 404
 
+
+@app.route('/plants/search', methods=['GET'])
+def search_plants_by_keyword():
+    keyword = request.args.get('keyword')
+
+    if not keyword:
+        return jsonify({'error': 'No keyword provided for search'})
+
+    plants_ref = db.reference('jenis_tanaman')
+    all_plants_data = plants_ref.get()
+
+    if all_plants_data:
+        matched_plants = {}
+        for plant_id, plant_data in all_plants_data.items():
+            plant_name = plant_data.get('nama', '').lower()
+            if keyword.lower() in plant_name:
+                matched_plants[plant_id] = plant_data
+
+        if matched_plants:
+            return jsonify({
+                "status": {
+                    "code": 200,
+                    "message": f"Found matching plants for the keyword '{keyword}'",
+                },
+                "data": matched_plants
+            }), 200
+        else:
+            return jsonify({
+                "status": {
+                    "code": 404,
+                    "message": f"No matching plants found for the keyword '{keyword}'"
+                }
+            }), 404
+    else:
+        return jsonify({
+            "status": {
+                "code": 404,
+                "message": "No plants found"
+            }
+        }), 404
+
+
+
 # API SOIL TYPE
 @app.route('/soil', methods=['GET'])
 def get_all_soils():
@@ -139,27 +182,26 @@ def soil_detail(soil_name):
     soil_ref = db.reference('tanah').child(soil_name)
     soil_data = soil_ref.get()
     
-    data_requested = request.args.get('data_requested') 
+    data_requested = request.args.get('data_requested')
+    
     if soil_data:
         if data_requested in ['deskripsi_tanah', 'jenis', 'nama_tanah', 'rekomendasi_bibit']:
             response_data = soil_data.get(data_requested)
             return jsonify({
                 "status": {
                     "code": 200,
-                    "message": f"Success get {data_requested} based on ID"
+                    "message": f"Success get {data_requested} for soil {soil_name}"
                 },
                 "data": response_data
             }), 200
-
-        elif data_requested == 'detail':
+        elif not data_requested:
             return jsonify({
                 "status": {
                     "code": 200,
-                    "message": f"Success get detail based on ID"
+                    "message": f"Success get detail for soil {soil_name}"
                 },
-                "data": soil_data  
+                "data": soil_data
             }), 200
-
         else:
             return jsonify({
                 "status": {
@@ -177,29 +219,40 @@ def soil_detail(soil_name):
 
 # MAIN FUNCTION
 @app.route('/upload', methods=['POST'])
-def upload_file():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'})
+def upload_image():
+    uploads_dir = 'uploads'  # Ubah nama variabel sesuai dengan yang benar
+    if not os.path.exists(uploads_dir):
+        os.makedirs(uploads_dir)
 
-    file = request.files['file']
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image part'})
 
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'})
+    image = request.files['image']
 
-    if file and allowed_file(file.filename):
-        file_path = os.path.join('uploads', file.filename)
-        file.save(file_path)
+    if image.filename == '':
+        return jsonify({'error': 'No selected image'})
 
-        class_name, confidence_score = predict_image(file_path)
+    if image and allowed_image(image.filename):
+        image_path = os.path.join(uploads_dir, secure_filename(image.filename))  # Gunakan variabel uploads_dir yang benar
+        image.save(image_path)
+
+        class_name, confidence_score = predict_image(image_path)
 
         # Simpan hasil prediksi ke Firebase Realtime Database
         firebase_ref.push({
-            'file_name': file.filename,
+            'image_name': image.filename,
             'class_name': class_name,
-            'confidence_score': float(confidence_score)
+            'confidence_score': f"{float(confidence_score) * 100:.2f}" 
         })
 
-        return jsonify({'success': 'File uploaded and predictions saved to Firebase'})
+        # Menambahkan informasi prediksi ke respons JSON
+        return jsonify({
+            'success': 'File uploaded and predictions saved to Firebase',
+            'prediction': {
+                'class_name': class_name,
+                'confidence_score': f"{float(confidence_score) * 100:.2f}" 
+            }
+        })
     else:
         return jsonify({'error': 'Failed to upload file or file type not allowed'})
 
