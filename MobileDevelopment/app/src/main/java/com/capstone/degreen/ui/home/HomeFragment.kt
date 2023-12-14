@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.degreen.R
-import com.capstone.degreen.data.DataPlant
+import com.capstone.degreen.data.DataSoil
 import com.capstone.degreen.databinding.FragmentHomeBinding
-import com.capstone.degreen.ui.adapter.ListPlantAdapter
+import com.capstone.degreen.ui.adapter.ListSoilAdapter
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var rvplant : RecyclerView
-    private val list = ArrayList<DataPlant>()
+    private lateinit var rvsoil : RecyclerView
+    private val list = ArrayList<DataSoil>()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -37,10 +37,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvplant = binding.rvPlant
-        rvplant.setHasFixedSize(true)
+        rvsoil = binding.rvSoil
+        rvsoil.setHasFixedSize(true)
 
-        list.addAll(getlistPlants())
+        list.addAll(getlistSoil())
         showRecyclerList()
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
@@ -48,23 +48,23 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun getlistPlants() : ArrayList<DataPlant>{
-        val dataName = resources.getStringArray(R.array.data_name)
-        val dataPhoto = resources.getStringArray(R.array.data_photo)
-        val dataDescription = resources.getStringArray(R.array.data_description)
+    private fun getlistSoil() : ArrayList<DataSoil>{
+        val dataName = resources.getStringArray(R.array.data_name_soil)
+        val dataPhoto = resources.obtainTypedArray(R.array.data_photo_soil)
+        val dataDescription = resources.getStringArray(R.array.data_description_plant)
 
-        val listPlant = ArrayList<DataPlant>()
+        val listSoil = ArrayList<DataSoil>()
         for (i in dataName.indices){
-            val plant = DataPlant(dataName[i], dataPhoto[i], dataDescription[i])
-            listPlant.add(plant)
+            val soil = DataSoil(dataName[i], dataPhoto.getResourceId(i,-1), dataDescription[i])
+            listSoil.add(soil)
         }
-        return listPlant
+        return listSoil
     }
 
     private fun showRecyclerList() {
-        rvplant.layoutManager = GridLayoutManager(requireActivity(),2)
-        val listPlantAdapter = ListPlantAdapter(list)
-        rvplant.adapter = listPlantAdapter
+        rvsoil.layoutManager = LinearLayoutManager(requireActivity())
+        val listPlantAdapter = ListSoilAdapter(list)
+        rvsoil.adapter = listPlantAdapter
     }
 
     override fun onDestroyView() {

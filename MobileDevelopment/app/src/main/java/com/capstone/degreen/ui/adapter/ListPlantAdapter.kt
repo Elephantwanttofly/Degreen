@@ -1,18 +1,16 @@
 package com.capstone.degreen.ui.adapter
 
 import android.content.Intent
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstone.degreen.R
 import com.capstone.degreen.data.DataPlant
-import com.capstone.degreen.ui.DetailActivity
+import com.capstone.degreen.ui.PlantDetailActivity
 
 class ListPlantAdapter(private val listPlant : ArrayList<DataPlant>) : RecyclerView.Adapter<ListPlantAdapter.ListViewHolder>() {
 
@@ -38,10 +36,10 @@ class ListPlantAdapter(private val listPlant : ArrayList<DataPlant>) : RecyclerV
         holder.tvName.text = name
         holder.tvDesc.text = desc
         holder.itemView.setOnClickListener{
-            val intentDetail = Intent(holder.itemView.context, DetailActivity::class.java)
-            intentDetail.putExtra(DetailActivity.EXTRA_NAME, name)
-            intentDetail.putExtra(DetailActivity.EXTRA_DESC, desc)
-            intentDetail.putExtra(DetailActivity.EXTRA_PHOTO, img)
+            val intentDetail = Intent(holder.itemView.context, PlantDetailActivity::class.java)
+            intentDetail.putExtra(PlantDetailActivity.EXTRA_NAME, name)
+            intentDetail.putExtra(PlantDetailActivity.EXTRA_DESC, desc)
+            intentDetail.putExtra(PlantDetailActivity.EXTRA_PHOTO, img)
             holder.itemView.context.startActivity(intentDetail)
         }
     }

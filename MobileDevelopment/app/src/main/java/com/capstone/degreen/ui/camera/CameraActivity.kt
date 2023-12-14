@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.capstone.degreen.R
 import com.capstone.degreen.databinding.ActivityCameraBinding
 import com.capstone.degreen.ui.ResultClassificationActivity
+import com.capstone.degreen.ui.SoilDetailActivity
 
 class CameraActivity : AppCompatActivity() {
     private val binding by lazy { ActivityCameraBinding.inflate(layoutInflater)}

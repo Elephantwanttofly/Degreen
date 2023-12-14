@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.capstone.degreen.databinding.ActivityDetailBinding
+import com.capstone.degreen.databinding.ActivityPlantDetailBinding
 
-class DetailActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
+class PlantDetailActivity : AppCompatActivity() {
+    private val binding by lazy { ActivityPlantDetailBinding.inflate(layoutInflater) }
     private lateinit var tvDetailName : TextView
     private lateinit var tvDescription : TextView
     private lateinit var imgPhoto : ImageView

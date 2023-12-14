@@ -25,7 +25,10 @@
     <string name="aluvial_soil">Tanah Aluvial</string>
     <string name="aluvial_soil_is">Tanah Aluvial adalah</string>
     <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu</string>
-    <string-array name="data_name">
+    <string name="prediction_accuracy">Prediksi Akurasi :</string>
+    <string name="accuracy">70%</string>
+    <string name="back_home">Kembali ke Home</string>
+    <string-array name="data_name_plant">
         <item>Bibit Semangka</item>
         <item>Bibit Jeruk</item>
         <item>Bibit Pepaya</item>
@@ -36,7 +39,7 @@
         <item>Bibit Palawija</item>
         <item>Bibit Kedelai</item>
     </string-array>
-    <string-array name="data_photo">
+    <string-array name="data_photo_plant">
         <item>https://asset.kompas.com/crops/PSPS666vIqUHtpIe7YG6r9X0S_Q=/100x67:900x600/750x500/data/photo/2022/10/17/634d8234585f9.jpg</item>
         <item>https://dwu32cgxelq1c.cloudfront.net/local_newspapers/sites/71/2015/12/citrus-tree.jpg</item>
         <item>https://www.konteks.co.id/wp-content/uploads/2023/03/Mitos-Menanam-Pohon-Pepaya.png</item>
@@ -47,7 +50,22 @@
         <item>https://i0.wp.com/media.dekoruma.com/article/2021/06/08192500/pwj4-jenis-tanaman-palawija-singkong.jpg</item>
         <item>https://bibitbunga.com/wp-content/uploads/2016/03/kacang-kedelai.jpg</item>
     </string-array>
-    <string-array name="data_description">
+    <string-array name="data_name_soil">
+        <item>Tanah Merah</item>
+        <item>Tanah Cinder</item>
+        <item>Tanah Clay</item>
+        <item>Tanah Hitam</item>
+        <item>Tanah Alluvial</item>
+    </string-array>
+    <string-array name="data_photo_soil">
+        <item>@drawable/red_soil</item>
+        <item>@drawable/cinder_soil</item>
+        <item>@drawable/clay_soil</item>
+        <item>@drawable/black_soil</item>
+        <item>@drawable/alluvial_soil</item>
+        <item></item>
+    </string-array>
+    <string-array name="data_description_plant">
         <item>Semangka</item>
         <item>Jeruk</item>
         <item>Pepaya</item>
@@ -57,5 +75,12 @@
         <item>Jagung</item>
         <item>Palawija</item>
         <item>Kedelai</item>
+    </string-array>
+    <string-array name="data_description_soil">
+        <item>Tanah Merah</item>
+        <item>Tanah Cinder</item>
+        <item>Tanah Clay</item>
+        <item>Tanah Hitam</item>
+        <item>Tanah Alluvial</item>
     </string-array>
 </resources>
