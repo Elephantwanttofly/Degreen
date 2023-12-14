@@ -15,7 +15,7 @@ app.config['UPLOAD_FOLDER'] = 'db.prediksi'
 app.config['MODEL_FILE'] = 'soil_classification_model2.h5'
 app.config['LABELS_FILE'] = 'labels.txt'
 
-cred = credentials.Certificate('C:\\Users\\Lenovo\\AppData\\Local\\Programs\\degreen-project-capstone-firebase-adminsdk-k7s32-dab5bf5bc6.json')
+cred = credentials.Certificate('degreen-project-capstone-firebase-adminsdk-k7s32-dab5bf5bc6.json')
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'  # Ganti dengan URL database Firebase Anda
 })
@@ -220,7 +220,7 @@ def soil_detail(soil_name):
 # MAIN FUNCTION
 @app.route('/upload', methods=['POST'])
 def upload_image():
-    uploads_dir = 'uploads'  # Ubah nama variabel sesuai dengan yang benar
+    uploads_dir = 'uploads' 
     if not os.path.exists(uploads_dir):
         os.makedirs(uploads_dir)
 
@@ -233,19 +233,17 @@ def upload_image():
         return jsonify({'error': 'No selected image'})
 
     if image and allowed_image(image.filename):
-        image_path = os.path.join(uploads_dir, secure_filename(image.filename))  # Gunakan variabel uploads_dir yang benar
+        image_path = os.path.join(uploads_dir, secure_filename(image.filename)) 
         image.save(image_path)
 
         class_name, confidence_score = predict_image(image_path)
 
-        # Simpan hasil prediksi ke Firebase Realtime Database
         firebase_ref.push({
             'image_name': image.filename,
             'class_name': class_name,
             'confidence_score': f"{float(confidence_score) * 100:.2f}" 
         })
 
-        # Menambahkan informasi prediksi ke respons JSON
         return jsonify({
             'success': 'File uploaded and predictions saved to Firebase',
             'prediction': {
@@ -258,4 +256,3 @@ def upload_image():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
-
