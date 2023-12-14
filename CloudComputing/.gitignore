@@ -1,7 +1,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
-.auth.py
+auth.py
+degreen-project-capstone-firebase-adminsdk-k7s32-dab5bf5bc6.json
+
 
 # C extensions
 *.so
