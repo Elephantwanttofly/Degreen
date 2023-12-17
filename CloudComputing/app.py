@@ -41,76 +41,70 @@ def predict_image(image):
     confidence_score = predictions[0][index]
     return class_name, confidence_score
 
-@app.route("/")
-def index():
-    return jsonify({
-        "status": {
-            "code": 200,
-            "message": "Welcome to DeGreen",
-        },
-        "data": None
-    }), 200
+#PLANTS FUNCTION
+@app.route('/plants/<string:id_tanaman>', methods=['GET'])
+def get_plant_or_all_plants(id_tanaman):
+    valid_id = ['T01P', 'T02D', 'T03M', 'T04J', 'T05S', 'T06B', 'T07K', 'T08T', 'T09T', 'T10B', 'T11S', 'T12A', 'T13J', 'T14K', 'T15W', 'T16B',
+                 'T17K', 'T18J', 'T19K', 'T20C', 'T21N', 'T22K', 'T23R', 'T24A', 'T25L', 'T26K', 'T27C', 'T28S', 'T29K', 'T30S', 'T31A', 'T32P',
+                 'T33D', 'T34J', 'T35B', 'T36K', 'T37U', 'T38B', 'T39M', 'T40K', 'T41M', 'T42J', 'T43J', 'T44M', 'T45S', 'T46C', 'T47J', 'T48P', 'T49B', 'T50K']
 
-# API TYPES OF PLANTS
-@app.route('/plants', methods=['GET'])
-def get_all_plants():
-    plants_ref = db.reference('jenis_tanaman')
-    all_plants_data = plants_ref.get()
-    
-    if all_plants_data:
-        return jsonify({
-            "status": {
-                "code": 200,
-                "message": "Success get all plants",
-            },
-            "data": all_plants_data
-        }), 200
-    else:
-        return jsonify({
-            "status": {
-                "code": 404,
-                "message": "No plants found"
-            }
-        }), 404
+    if id_tanaman == "plants":
+        plant_ref = db.reference('jenis_tanaman')
+        all_plants = plant_ref.get()
 
-@app.route('/plants/<string:plant_id>', methods=['GET'])
-def plant_detail(plant_id):
-    plant_ref = db.reference('jenis_tanaman').child(plant_id)
-    plant_data = plant_ref.get()
-    
-    data_requested = request.args.get('data_requested')  
-    if plant_data:
-        if data_requested in ['deskripsi_tanaman', 'id_tanaman', 'nama', 'url_gambar', 'url_produk']:
-            response_data = plant_data.get(data_requested)
-            return jsonify({ 
-                "status": {
-                    "code": 200,
-                    "message": f"Success get {data_requested} based on ID"
-                },
-                "data": response_data
-            }), 200
-        elif data_requested == 'detail':
+        if all_plants:
             return jsonify({
                 "status": {
                     "code": 200,
-                    "message": f"Success get detail based on ID"
+                    "message": "Success get all plants",
                 },
-                "data": plant_data  
+                "data": all_plants
             }), 200
         else:
             return jsonify({
                 "status": {
-                    "code": 400,
-                    "message": "Invalid data_requested parameter"
+                    "code": 404,
+                    "message": "Plants not found",
                 }
-            }), 400
+            }), 404
+
+    elif id_tanaman in valid_id:
+        plant_ref = db.reference('jenis_tanaman').child(id_tanaman)
+        plant_data = plant_ref.get()
+
+        data_requested = request.args.get('data_requested')
+        if data_requested:
+            if data_requested in ['deskripsi_tanaman', 'id_tanaman', 'nama', 'url_gambar', 'url_produk']:
+                response_data = plant_data.get(data_requested)
+                return jsonify({
+                    "status": {
+                        "code": 200,
+                        "message": f"Success get {data_requested} based on ID {id_tanaman}"
+                    },
+                    "data": response_data
+                }), 200
+            else:
+                return jsonify({
+                    "status": {
+                        "code": 400,
+                        "message": "Invalid data_requested parameter"
+                    }
+                }), 400
+
+        return jsonify({
+            "status": {
+                "code": 200,
+                "message": f"Success get detail based on ID {id_tanaman}",
+            },
+            "data": plant_data
+        }), 200
     else:
         return jsonify({
             "status": {
-                "code": 404,
-                "message": "Plant not found"
+                "code": 400,
+                "message": "Invalid request or Plant ID not found"
             }
-        }), 404
+        }), 400
 
 
 @app.route('/plants/search', methods=['GET'])
@@ -118,7 +112,12 @@ def search_plants_by_keyword():
     keyword = request.args.get('keyword')
 
     if not keyword:
-        return jsonify({'error': 'No keyword provided for search'})
+        return jsonify({
+            "status": {
+                "code": 400,
+                "message": "Bad request, please input keyword for search"
+            }
+        }), 400
 
     plants_ref = db.reference('jenis_tanaman')
     all_plants_data = plants_ref.get()
@@ -145,22 +144,48 @@ def search_plants_by_keyword():
                     "message": f"No matching plants found for the keyword '{keyword}'"
                 }
             }), 404
-    else:
-        return jsonify({
-            "status": {
-                "code": 404,
-                "message": "No plants found"
-            }
-        }), 404
-
-
 
 # API SOIL TYPE
-@app.route('/soil', methods=['GET'])
-def get_all_soils():
+@app.route('/soil/<string:id_tanah>', methods=['GET'])
+def get_soil_by_id(id_tanah):
+    valid_ids = ['001', '002', '003', '004', '005']
+
+    if id_tanah in valid_ids:
+        soil_ref = db.reference('tanah').child(id_tanah)
+        soil_data = soil_ref.get()
+
+        data_requested = request.args.get('data_requested')
+
+        if data_requested:
+            if data_requested in ['deskripsi_tanah', 'jenis', 'nama_tanah', 'url_tanah', 'rekomendasi_bibit']:
+                response_data = soil_data.get(data_requested)
+                return jsonify({
+                    "status": {
+                        "code": 200,
+                        "message": f"Success get {data_requested} for soil {id_tanah}"
+                    },
+                    "data": response_data
+                }), 200
+            else:
+                return jsonify({
+                    "status": {
+                        "code": 400,
+                        "message": "Invalid data_requested parameter"
+                    }
+                }), 400
+
+        return jsonify({
+            "status": {
+                "code": 200,
+                "message": f"Success get detail for soil {id_tanah}",
+            },
+            "data": soil_data
+        }), 200
+
+    # Jika id_tanah tidak ditemukan, akan mengembalikan seluruh daftar tanah
     soils_ref = db.reference('tanah')
     all_soils_data = soils_ref.get()
-    
+
     if all_soils_data:
         return jsonify({
             "status": {
@@ -177,45 +202,6 @@ def get_all_soils():
             }
         }), 404
 
-@app.route('/soil/<string:soil_name>', methods=['GET'])
-def soil_detail(soil_name):
-    soil_ref = db.reference('tanah').child(soil_name)
-    soil_data = soil_ref.get()
-    
-    data_requested = request.args.get('data_requested')
-    
-    if soil_data:
-        if data_requested in ['deskripsi_tanah', 'jenis', 'nama_tanah', 'rekomendasi_bibit']:
-            response_data = soil_data.get(data_requested)
-            return jsonify({
-                "status": {
-                    "code": 200,
-                    "message": f"Success get {data_requested} for soil {soil_name}"
-                },
-                "data": response_data
-            }), 200
-        elif not data_requested:
-            return jsonify({
-                "status": {
-                    "code": 200,
-                    "message": f"Success get detail for soil {soil_name}"
-                },
-                "data": soil_data
-            }), 200
-        else:
-            return jsonify({
-                "status": {
-                    "code": 400,
-                    "message": "Invalid data_requested parameter"
-                }
-            }), 400
-    else:
-        return jsonify({
-            "status": {
-                "code": 404,
-                "message": "Soil not found"
-            }
-        }), 404
 
 # MAIN FUNCTION
 @app.route('/upload', methods=['POST'])
@@ -225,12 +211,22 @@ def upload_image():
         os.makedirs(uploads_dir)
 
     if 'image' not in request.files:
-        return jsonify({'error': 'No image part'})
+        return jsonify({
+        "status": {
+            "code": 400,
+            "message": "Bad request: Please input an image"
+        }
+    }), 400
 
     image = request.files['image']
 
     if image.filename == '':
-        return jsonify({'error': 'No selected image'})
+        return jsonify({
+        "status": {
+            "code": 400,
+            "message": "Bad request: No selected image"
+        }
+    }), 400
 
     if image and allowed_image(image.filename):
         image_path = os.path.join(uploads_dir, secure_filename(image.filename)) 
@@ -238,21 +234,28 @@ def upload_image():
 
         class_name, confidence_score = predict_image(image_path)
 
+        confidence_percentage = int(float(confidence_score) * 100)
+
         firebase_ref.push({
             'image_name': image.filename,
             'class_name': class_name,
-            'confidence_score': f"{float(confidence_score) * 100:.2f}" 
+            'confidence_score': confidence_percentage 
         })
 
         return jsonify({
             'success': 'File uploaded and predictions saved to Firebase',
             'prediction': {
                 'class_name': class_name,
-                'confidence_score': f"{float(confidence_score) * 100:.2f}" 
+                'confidence_score': confidence_percentage 
             }
         })
     else:
-        return jsonify({'error': 'Failed to upload file or file type not allowed'})
+        return jsonify({
+            "status": {
+                "code": 400,
+                "message": "Failed to upload file or file type not allowed"
+            }
+        }), 400
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
