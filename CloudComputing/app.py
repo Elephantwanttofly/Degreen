@@ -53,12 +53,14 @@ def get_plant_or_all_plants(id_tanaman):
         all_plants = plant_ref.get()
 
         if all_plants:
+            plants_array = [{"id_tanaman": key, "data": value} for key, value in all_plants.items()]
+
             return jsonify({
                 "status": {
                     "code": 200,
                     "message": "Success get all plants",
                 },
-                "data": all_plants
+                "data": plants_array
             }), 200
         else:
             return jsonify({
@@ -91,12 +93,13 @@ def get_plant_or_all_plants(id_tanaman):
                     }
                 }), 400
 
+        plant_array = [{"id_tanaman": id_tanaman, "data": plant_data}]
         return jsonify({
             "status": {
                 "code": 200,
                 "message": f"Success get detail based on ID {id_tanaman}",
             },
-            "data": plant_data
+            "data": plant_array
         }), 200
     else:
         return jsonify({
@@ -150,57 +153,58 @@ def search_plants_by_keyword():
 def get_soil_by_id(id_tanah):
     valid_ids = ['001', '002', '003', '004', '005']
 
-    if id_tanah in valid_ids:
-        soil_ref = db.reference('tanah').child(id_tanah)
-        soil_data = soil_ref.get()
+if id_tanah in valid_ids:
+    soil_ref = db.reference('tanah').child(id_tanah)
+    soil_data = soil_ref.get()
 
-        data_requested = request.args.get('data_requested')
+    data_requested = request.args.get('data_requested')
 
-        if data_requested:
-            if data_requested in ['deskripsi_tanah', 'jenis', 'nama_tanah', 'url_tanah', 'rekomendasi_bibit']:
-                response_data = soil_data.get(data_requested)
-                return jsonify({
-                    "status": {
-                        "code": 200,
-                        "message": f"Success get {data_requested} for soil {id_tanah}"
-                    },
-                    "data": response_data
-                }), 200
-            else:
-                return jsonify({
-                    "status": {
-                        "code": 400,
-                        "message": "Invalid data_requested parameter"
-                    }
-                }), 400
+    if data_requested:
+        if data_requested in ['deskripsi_tanah', 'jenis', 'nama_tanah', 'url_tanah', 'rekomendasi_bibit']:
+            response_data = soil_data.get(data_requested)
+            return jsonify({
+                "status": {
+                    "code": 200,
+                    "message": f"Success get {data_requested} for soil {id_tanah}"
+                },
+                "data": response_data
+            }), 200
+        else:
+            return jsonify({
+                "status": {
+                    "code": 400,
+                    "message": "Invalid data_requested parameter"
+                }
+            }), 400
 
-        return jsonify({
-            "status": {
-                "code": 200,
-                "message": f"Success get detail for soil {id_tanah}",
-            },
-            "data": soil_data
-        }), 200
+    soil_array = [{"id_tanah": id_tanah, "data": soil_data}]
+    return jsonify({
+        "status": {
+            "code": 200,
+            "message": f"Success get detail for soil {id_tanah}",
+        },
+        "data": soil_array
+    }), 200
 
-    # Jika id_tanah tidak ditemukan, akan mengembalikan seluruh daftar tanah
-    soils_ref = db.reference('tanah')
-    all_soils_data = soils_ref.get()
+soils_ref = db.reference('tanah')
+all_soils_data = soils_ref.get()
 
-    if all_soils_data:
-        return jsonify({
-            "status": {
-                "code": 200,
-                "message": "Success get all soils",
-            },
-            "data": all_soils_data
-        }), 200
-    else:
-        return jsonify({
-            "status": {
-                "code": 404,
-                "message": "No soils found"
-            }
-        }), 404
+if all_soils_data:
+    soils_array = [{"id_tanah": key, "data": value} for key, value in all_soils_data.items()]
+    return jsonify({
+        "status": {
+            "code": 200,
+            "message": "Success get all soils",
+        },
+        "data": soils_array
+    }), 200
+else:
+    return jsonify({
+        "status": {
+            "code": 404,
+            "message": "No soils found"
+        }
+    }), 404
 
 
 # MAIN FUNCTION
