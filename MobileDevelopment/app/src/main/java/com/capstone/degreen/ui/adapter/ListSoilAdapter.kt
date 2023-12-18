@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.degreen.R
 import com.capstone.degreen.data.DataSoil
-import com.capstone.degreen.ui.PlantDetailActivity
 import com.capstone.degreen.ui.SoilDetailActivity
 
 class ListSoilAdapter(private val listSoil : ArrayList<DataSoil>) : RecyclerView.Adapter<ListSoilAdapter.ListViewHolder>() {

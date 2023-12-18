@@ -54,8 +54,8 @@
         <item>Tanah Merah</item>
         <item>Tanah Cinder</item>
         <item>Tanah Clay</item>
-        <item>Tanah Hitam</item>
-        <item>Tanah Alluvial</item>
+        <item>black</item>
+        <item>aluvial</item>
     </string-array>
     <string-array name="data_photo_soil">
         <item>@drawable/red_soil</item>
