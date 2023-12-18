@@ -53,27 +53,27 @@ class SoilDetailActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        getSoil()
+//        getSoil()
     }
 
-    private fun getSoil(){
-        ApiConfig.getApiService().getSoilDetails("aluvial", "jenis")
-            .enqueue(object : Callback<SoilDetailResponse> {
-                override fun onResponse(
-                    call: Call<SoilDetailResponse>,
-                    response: Response<SoilDetailResponse>
-                ) {
-                    if(response.isSuccessful){
-                        showData(response.body()!!)
-                    }
-                }
-
-                override fun onFailure(call: Call<SoilDetailResponse>, t: Throwable) {
-                    Log.d(TAG, t.toString())
-                }
-
-            })
-    }
+//    private fun getSoil(){
+//        ApiConfig.getApiService().getSoilDetails("aluvial", "jenis")
+//            .enqueue(object : Callback<SoilDetailResponse> {
+//                override fun onResponse(
+//                    call: Call<SoilDetailResponse>,
+//                    response: Response<SoilDetailResponse>
+//                ) {
+//                    if(response.isSuccessful){
+//                        showData(response.body()!!)
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<SoilDetailResponse>, t: Throwable) {
+//                    Log.d(TAG, t.toString())
+//                }
+//
+//            })
+//    }
 
     private fun showData(response: SoilDetailResponse){
         Log.d(TAG, "responseData : $response")
@@ -107,6 +107,7 @@ class SoilDetailActivity : AppCompatActivity() {
         const val EXTRA_NAME = "extra_name"
         const val EXTRA_DESC = "extra_desc"
         const val EXTRA_PHOTO = "extra_photo"
+        const val ID="id"
     }
 
 }

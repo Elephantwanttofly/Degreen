@@ -2,13 +2,20 @@ package com.capstone.degreen.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.degreen.R
+import com.capstone.degreen.data.model.ListSoilResponse
+import com.capstone.degreen.data.model.UploadResponse
+import com.capstone.degreen.data.retrofit.ApiConfig
 import com.capstone.degreen.databinding.ActivityMainBinding
 import com.capstone.degreen.ui.camera.CameraActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,5 +40,10 @@ class MainActivity : AppCompatActivity() {
     private fun intentCamera(){
         val intent = Intent(this@MainActivity, CameraActivity::class.java)
         startActivity(intent)
+    }
+
+    companion object{
+        const val TAG = "MainActivity"
+
     }
 }

@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.capstone.degreen.R
 import com.capstone.degreen.data.retrofit.ApiConfig
 import com.capstone.degreen.databinding.ActivityCameraBinding
+import com.capstone.degreen.ui.MainActivity
 import com.capstone.degreen.ui.ResultClassificationActivity
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -118,7 +119,7 @@ class CameraActivity : AppCompatActivity() {
 
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
             val multipartBody = MultipartBody.Part.createFormData(
-                "photo",
+                "image",
                 imageFile.name,
                 requestImageFile
             )
@@ -127,12 +128,13 @@ class CameraActivity : AppCompatActivity() {
                     val apiService = ApiConfig.getApiService()
                     val successResponse = apiService.uploadImage(multipartBody)
                     successResponse.success?.let { showToast(it) }
-
+                    Log.d(TAG, "sukses : ${successResponse}")
 //                    showLoading(false)
                 } catch (e: HttpException) {
                     val errorBody = e.response()?.errorBody()?.string()
                     val errorResponse = Gson().fromJson(errorBody, UploadResponse::class.java)
                     errorResponse.success?.let { showToast(it) }
+                    Log.d(TAG, "gagal :  ${errorResponse}")
 //                    showLoading(false)
                 }
             }
