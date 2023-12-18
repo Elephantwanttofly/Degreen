@@ -58,7 +58,7 @@ def get_plant_or_all_plants(id_tanaman):
                     "code": 200,
                     "message": "Success get all plants",
                 },
-                "data": all_plants
+                "data": list(all_plants.values())
             }), 200
         else:
             return jsonify({
@@ -72,32 +72,21 @@ def get_plant_or_all_plants(id_tanaman):
         plant_ref = db.reference('jenis_tanaman').child(id_tanaman)
         plant_data = plant_ref.get()
 
-        data_requested = request.args.get('data_requested')
-        if data_requested:
-            if data_requested in ['deskripsi_tanaman', 'id_tanaman', 'nama', 'url_gambar', 'url_produk']:
-                response_data = plant_data.get(data_requested)
-                return jsonify({
-                    "status": {
-                        "code": 200,
-                        "message": f"Success get {data_requested} based on ID {id_tanaman}"
-                    },
-                    "data": response_data
-                }), 200
-            else:
-                return jsonify({
-                    "status": {
-                        "code": 400,
-                        "message": "Invalid data_requested parameter"
-                    }
-                }), 400
-
-        return jsonify({
-            "status": {
-                "code": 200,
-                "message": f"Success get detail based on ID {id_tanaman}",
-            },
-            "data": plant_data
-        }), 200
+        if plant_data:
+            return jsonify({
+                "status": {
+                    "code": 200,
+                    "message": f"Success get detail based on ID {id_tanaman}",
+                },
+                "data": [plant_data]
+            }), 200
+        else:
+            return jsonify({
+                "status": {
+                    "code": 404,
+                    "message": "Plant ID not found",
+                }
+            }), 404
     else:
         return jsonify({
             "status": {
@@ -145,7 +134,6 @@ def search_plants_by_keyword():
                 }
             }), 404
 
-# API SOIL TYPE
 @app.route('/soil/<string:id_tanah>', methods=['GET'])
 def get_soil_by_id(id_tanah):
     valid_ids = ['001', '002', '003', '004', '005']
@@ -164,7 +152,7 @@ def get_soil_by_id(id_tanah):
                         "code": 200,
                         "message": f"Success get {data_requested} for soil {id_tanah}"
                     },
-                    "data": response_data
+                    "data": [response_data]  # Mengubah data menjadi array dengan satu elemen
                 }), 200
             else:
                 return jsonify({
@@ -179,7 +167,7 @@ def get_soil_by_id(id_tanah):
                 "code": 200,
                 "message": f"Success get detail for soil {id_tanah}",
             },
-            "data": soil_data
+            "data": [soil_data]  # Mengubah data menjadi array dengan satu elemen
         }), 200
 
     # Jika id_tanah tidak ditemukan, akan mengembalikan seluruh daftar tanah
@@ -192,7 +180,7 @@ def get_soil_by_id(id_tanah):
                 "code": 200,
                 "message": "Success get all soils",
             },
-            "data": all_soils_data
+            "data": list(all_soils_data.values())  # Mengubah data menjadi array dari semua nilai dictionary
         }), 200
     else:
         return jsonify({
