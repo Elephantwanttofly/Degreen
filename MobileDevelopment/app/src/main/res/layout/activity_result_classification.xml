@@ -40,8 +40,8 @@
         android:textSize="16sp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="16dp"
-        android:text="@string/aluvial_soil"
         android:textStyle="bold"
+        tools:text="@string/aluvial_soil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_type_of_soil"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -66,8 +66,8 @@
         android:textSize="16sp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="16dp"
-        android:text="@string/accuracy"
         android:textStyle="bold"
+        tools:text="@string/accuracy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_prediction_accuracy"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -86,5 +86,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_result"
+        app:layout_constraintVertical_bias="0.336" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

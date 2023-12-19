@@ -7,14 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.degreen.data.DataSoil
+import com.capstone.degreen.data.model.DataItem
 import com.capstone.degreen.data.model.ListSoilResponse
 import com.capstone.degreen.data.retrofit.ApiConfig
 import com.capstone.degreen.databinding.FragmentHomeBinding
 import com.capstone.degreen.ui.MainActivity
+import com.capstone.degreen.ui.SoilDetailActivity
 import com.capstone.degreen.ui.adapter.ListSoilAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,8 +34,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+//        val homeViewModel =
+//            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -47,8 +48,7 @@ class HomeFragment : Fragment() {
 
         rvsoil = binding.rvSoil
         rvsoil.setHasFixedSize(true)
-
-//        list.addAll(getlistSoil())
+        
         showRecyclerList()
 
         with(binding) {
@@ -62,7 +62,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun showRecyclerList() {
-        listSoilAdapter = ListSoilAdapter(arrayListOf())
+        listSoilAdapter = ListSoilAdapter(arrayListOf(), object : ListSoilAdapter.OnAdapterListener{
+            override fun onClick(soil: DataItem) {
+                SOIL_ID = soil.id!!
+
+                val intent = Intent(context, SoilDetailActivity::class.java)
+                startActivity(intent)
+            }
+
+        })
         rvsoil.apply {
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = listSoilAdapter
@@ -71,7 +79,7 @@ class HomeFragment : Fragment() {
 
     fun getSoil(){
         showLoading(true)
-        ApiConfig.getApiService().getSoil("001")
+        ApiConfig.getApiService().getSoil()
             .enqueue(object : Callback<ListSoilResponse> {
                 override fun onResponse(
                     call: Call<ListSoilResponse>,
@@ -91,7 +99,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showData(response: ListSoilResponse) {
-//        listSoilAdapter.setData(response.data)
+        listSoilAdapter.setData(response.data)
     }
 
     private fun showLoading(loading: Boolean) {
@@ -109,5 +117,9 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object{
+        var SOIL_ID: String = "soil_id"
     }
 }

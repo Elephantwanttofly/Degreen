@@ -12,9 +12,9 @@ import com.capstone.degreen.R
 import com.capstone.degreen.data.DataPlant
 import com.capstone.degreen.data.model.SoilDetailResponse
 import com.capstone.degreen.data.retrofit.ApiConfig
-import com.capstone.degreen.data.retrofit.ApiService
 import com.capstone.degreen.databinding.ActivitySoilDetailBinding
 import com.capstone.degreen.ui.adapter.ListPlantAdapter
+import com.capstone.degreen.ui.home.HomeFragment.Companion.SOIL_ID
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,34 +49,31 @@ class SoilDetailActivity : AppCompatActivity() {
 
         list.addAll(getlistPlants())
         showRecyclerList()
+        getSoil()
     }
 
-    override fun onStart() {
-        super.onStart()
-//        getSoil()
-    }
 
-//    private fun getSoil(){
-//        ApiConfig.getApiService().getSoilDetails("aluvial", "jenis")
-//            .enqueue(object : Callback<SoilDetailResponse> {
-//                override fun onResponse(
-//                    call: Call<SoilDetailResponse>,
-//                    response: Response<SoilDetailResponse>
-//                ) {
-//                    if(response.isSuccessful){
-//                        showData(response.body()!!)
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<SoilDetailResponse>, t: Throwable) {
-//                    Log.d(TAG, t.toString())
-//                }
-//
-//            })
-//    }
+    private fun getSoil(){
+        ApiConfig.getApiService().getSoilDetails(SOIL_ID)
+            .enqueue(object : Callback<SoilDetailResponse> {
+                override fun onResponse(
+                    call: Call<SoilDetailResponse>,
+                    response: Response<SoilDetailResponse>
+                ) {
+                    if(response.isSuccessful){
+                        showData(response.body()!!)
+                    }
+                }
+
+                override fun onFailure(call: Call<SoilDetailResponse>, t: Throwable) {
+                    Log.d(TAG,"GagalAmbilDetail {t}" )
+                }
+
+            })
+    }
 
     private fun showData(response: SoilDetailResponse){
-        Log.d(TAG, "responseData : $response")
+        Log.d(TAG, "responseData : ${response.data}")
 
     }
 

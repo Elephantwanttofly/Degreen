@@ -6,7 +6,9 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.capstone.degreen.data.model.UploadResponse
 import com.capstone.degreen.data.retrofit.ApiConfig
@@ -41,8 +43,9 @@ class ResultClassificationActivity : AppCompatActivity() {
         val imageUriString = intent.getStringExtra(EXTRA_PHOTO)
         imgPhoto = binding.ivResult
         val imageUri = Uri.parse(imageUriString)
-        currentImageUri = imageUri
         imgPhoto.setImageURI(imageUri)
+
+        currentImageUri = imageUri
 
         binding.btnBackHome.setOnClickListener{
             val backToMain = Intent(this@ResultClassificationActivity, MainActivity::class.java)
@@ -50,6 +53,7 @@ class ResultClassificationActivity : AppCompatActivity() {
         }
         getData()
     }
+
     fun createCustomTempFile(context: Context): File {
         val filesDir = context.externalCacheDir
         return File.createTempFile(timeStamp, ".jpg", filesDir)
@@ -69,30 +73,58 @@ class ResultClassificationActivity : AppCompatActivity() {
 
     private fun getData(){
         currentImageUri?.let { uri ->
+            binding.tvTypeOfSoil.visibility = View.GONE
+            binding.tvPredictionAccuracy.visibility = View.GONE
+            binding.btnBackHome.visibility = View.GONE
             val imageFile = uriToFile(uri, this)
-            Log.d("Image File", "showImage: ${imageFile.path}")
-        val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-        val multipartBody = MultipartBody.Part.createFormData(
-            "photo",
-            imageFile.name,
-            requestImageFile
-        )
-        lifecycleScope.launch {
-            try {
-                val apiService = ApiConfig.getApiService()
-                val successResponse = apiService.uploadImage(multipartBody)
-//                    successResponse.success?.let { showToast(it) }
-                Log.d(TAG, "responseUp : ${successResponse.success}")
-//                    showLoading(false)
-            } catch (e: HttpException) {
-                val errorBody = e.response()?.errorBody()?.string()
-                val errorResponse = Gson().fromJson(errorBody, UploadResponse::class.java)
-                Log.d(TAG, "gagalmasbro : ${errorResponse.success}")
-//                    errorResponse.success?.let { showToast(it) }
-//                    showLoading(false)
+            Log.d(TAG, "showImage: ${imageFile.path}")
+
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "image",
+                imageFile.name,
+                requestImageFile
+            )
+            showLoading(true)
+            lifecycleScope.launch {
+                try {
+                    val apiService = ApiConfig.getApiService()
+                    val successResponse = apiService.uploadImage(multipartBody)
+                    Log.d(TAG, "sukses : ${successResponse}")
+                    showResult(successResponse)
+                    showLoading(false)
+                } catch (e: HttpException) {
+                    val errorBody = e.response()?.errorBody()?.string()
+                    val errorResponse = Gson().fromJson(errorBody, UploadResponse::class.java)
+                    errorResponse.success?.let { showToast(it) }
+                    Log.d(TAG, "gagal :  ${errorResponse}")
+                    showLoading(false)
+                }
             }
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(loading: Boolean) {
+        when(loading) {
+            true -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            false -> {
+                binding.progressBar.visibility = View.GONE
+            }
         }
+    }
+
+    private fun showResult(response: UploadResponse){
+        binding.tvResultSoilName.text = response.prediction?.className
+        binding.tvAccuracy.text = response.prediction?.confidenceScore
+        binding.tvTypeOfSoil.visibility = View.VISIBLE
+        binding.tvPredictionAccuracy.visibility = View.VISIBLE
+        binding.btnBackHome.visibility = View.VISIBLE
     }
 
     companion object{

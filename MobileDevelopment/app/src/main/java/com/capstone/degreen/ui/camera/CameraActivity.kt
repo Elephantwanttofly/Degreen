@@ -114,34 +114,34 @@ class CameraActivity : AppCompatActivity() {
 
     fun uploadImage() {
         currentImageUri?.let { uri ->
-            val imageFile = uriToFile(uri, this)
-            Log.d("Image File", "showImage: ${imageFile.path}")
+//            val imageFile = uriToFile(uri, this)
+//            Log.d("Image File", "showImage: ${imageFile.path}")
+//
+//            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+//            val multipartBody = MultipartBody.Part.createFormData(
+//                "image",
+//                imageFile.name,
+//                requestImageFile
+//            )
+//            lifecycleScope.launch {
+//                try {
+//                    val apiService = ApiConfig.getApiService()
+//                    val successResponse = apiService.uploadImage(multipartBody)
+//                    successResponse.success?.let { showToast(it) }
+//                    Log.d(TAG, "sukses : ${successResponse}")
+////                    showLoading(false)
+//                } catch (e: HttpException) {
+//                    val errorBody = e.response()?.errorBody()?.string()
+//                    val errorResponse = Gson().fromJson(errorBody, UploadResponse::class.java)
+//                    errorResponse.success?.let { showToast(it) }
+//                    Log.d(TAG, "gagal :  ${errorResponse}")
+////                    showLoading(false)
+//                }
+//            }
 
-            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-            val multipartBody = MultipartBody.Part.createFormData(
-                "image",
-                imageFile.name,
-                requestImageFile
-            )
-            lifecycleScope.launch {
-                try {
-                    val apiService = ApiConfig.getApiService()
-                    val successResponse = apiService.uploadImage(multipartBody)
-                    successResponse.success?.let { showToast(it) }
-                    Log.d(TAG, "sukses : ${successResponse}")
-//                    showLoading(false)
-                } catch (e: HttpException) {
-                    val errorBody = e.response()?.errorBody()?.string()
-                    val errorResponse = Gson().fromJson(errorBody, UploadResponse::class.java)
-                    errorResponse.success?.let { showToast(it) }
-                    Log.d(TAG, "gagal :  ${errorResponse}")
-//                    showLoading(false)
-                }
-            }
-
-//            val intent = Intent(this@CameraActivity, ResultClassificationActivity::class.java)
-//            intent.putExtra(ResultClassificationActivity.EXTRA_PHOTO, uri.toString())
-//            startActivity(intent)
+            val intent = Intent(this@CameraActivity, ResultClassificationActivity::class.java)
+            intent.putExtra(ResultClassificationActivity.EXTRA_PHOTO, uri.toString())
+            startActivity(intent)
         } ?: showToast(getString(R.string.empty_image_warning))
     }
 
