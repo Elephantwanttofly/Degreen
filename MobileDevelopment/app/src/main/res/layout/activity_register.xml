@@ -63,7 +63,7 @@
             android:id="@+id/edt_name_register"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="  Name"
+            android:hint="Name"
             android:inputType="textEmailAddress"
             android:background="@drawable/corner"
             android:layout_marginTop="20dp"/>
@@ -72,7 +72,7 @@
             android:id="@+id/edt_email_register"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="  Email"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:background="@drawable/corner"
             android:layout_marginTop="20dp"/>
@@ -81,7 +81,7 @@
             android:id="@+id/edt_password_register"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint=" Password"
+            android:hint="Password"
             android:inputType="textPassword"
             android:background="@drawable/corner"
             android:layout_marginTop="20dp"/>
@@ -93,7 +93,8 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/green_primary"
             android:background="@drawable/corner_button"
-            android:text="Register" />
+            android:text="Register"
+            android:elevation="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
