@@ -1,5 +1,6 @@
 package com.capstone.degreen.ui.autent.regist
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -66,6 +67,8 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) {
                 if (it.isSuccessful) {
+                    val username = binding.edtNameRegister.text.toString()
+                    saveUsernameToSharedPreferences(username)
                     Toast.makeText(this, "Register Berhasil", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
@@ -73,5 +76,13 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.makeText(this, "${it.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun saveUsernameToSharedPreferences(username: String) {
+        val sharedPreferences = getSharedPreferences("preferensi aplikasi", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("user_name",username)
+        editor.apply()
+
     }
 }

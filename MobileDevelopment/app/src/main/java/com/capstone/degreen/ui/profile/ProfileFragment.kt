@@ -1,7 +1,9 @@
 package com.capstone.degreen.ui.profile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +35,16 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Mengambil nama pengguna dari SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("preferensi aplikasi", Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString("user_name", "GUEST")
+
+
+
+        // Tampilkan nama pengguna di TextView atau elemen UI lainnya
+        val textViewUsername = binding.tvname
+        textViewUsername.text = username
+
         val btnAboutUs: Button = binding.btnAboutus
         btnAboutUs.setOnClickListener{
             val intent = Intent(requireContext(), AboutUsActivity::class.java)
@@ -45,11 +57,6 @@ class ProfileFragment : Fragment() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-
-//        val textView: TextView = binding.textNotifications
-//        ProfileViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return root
     }
 

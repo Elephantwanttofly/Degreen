@@ -1,5 +1,6 @@
 package com.capstone.degreen.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -39,6 +40,16 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        // Mengambil nama pengguna dari SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("preferensi aplikasi", Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString("user_name", "GUEST")
+
+
+
+        // Tampilkan nama pengguna di TextView atau elemen UI lainnya
+        val textViewUsername = binding.nameHome
+        textViewUsername.text = username
 
         return root
     }
