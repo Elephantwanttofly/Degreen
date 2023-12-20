@@ -1,5 +1,0 @@
-0 Aluvial_Soil
-1 Black_Soil
-2 Cinder_Soil
-3 Clay_Soil
-4 Red_Soil
