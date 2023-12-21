@@ -19,7 +19,7 @@ GET index
 https://degreen-apps-polsmieylq-as.a.run.app
 <br>
 This endpoint provides a simple welcome message indicating the successful fetching of the API. It serves as a starting point to check if the API is operational.
-
+<br>
 GET All Soils
 https://degreen-apps-polsmieylq-as.a.run.app/soil
 <br>
