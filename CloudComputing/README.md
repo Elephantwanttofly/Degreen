@@ -41,3 +41,23 @@ Query Parameters
   <li> plant_id (optional): Specify the plant ID for more detailed information. </li>
   <li> get_detail (optional): Specify the detail to be retrieved </li>
 </ol>
+
+
+GET Soil Recommendation
+https://degreen-apps-polsmieylq-as.a.run.app/soil/001/rekomendasi_bibit
+<br>
+Endpoint
+GET /soil/{soil_id}/rekomendasi_bibit
+Description : Retrieve recommended plants for a specific soil type. This endpoint provides information about recommended plants, including their IDs and details.
+
+POST Upload Image for Prediction
+https://degreen-apps-polsmieylq-as.a.run.app/upload
+<br>
+Endpoint
+POST /upload
+Description : Upload an image for soil type prediction. The API utilizes a pre-trained deep learning model to analyze the image and predict the soil type. The predicted results, including the class name and confidence score, are then stored in Firebase Realtime Database.
+
+Request 
+<li>Method: POST</li>
+<li></li>Body: Form-data with key image and the image file.</li>
+Body : formdata
