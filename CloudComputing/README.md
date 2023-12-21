@@ -63,7 +63,7 @@ Request
 <li>Body: Form-data with key image and the image file.</li>
 Body : formdata
 
-Running the Application
+# **Running the Application**
 <br>
 To run the Degreen backend application, execute the following command:
 
