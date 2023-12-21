@@ -41,6 +41,13 @@ def predict_image(image):
     confidence_score = predictions[0][index]
     return class_name, confidence_score
 
+valid_ids = ['001', '002', '003', '004', '005']
+valid_id = ['T01P', 'T02D', 'T03M', 'T04J', 'T05S', 'T06B', 'T07K', 'T08T', 'T09T', 'T10B', 'T11S', 'T12A',
+                   'T13J', 'T14K', 'T15W', 'T16B', 'T17K', 'T18J', 'T19K', 'T20C', 'T21N', 'T22K', 'T23R', 'T24A',
+                   'T25L', 'T26K', 'T27C', 'T28S', 'T29K', 'T30S', 'T31A', 'T32P', 'T33D', 'T34J', 'T35B', 'T36K',
+                   'T37U', 'T38B', 'T39M', 'T40K', 'T41M', 'T42J', 'T43J', 'T44M', 'T45S', 'T46C', 'T47J', 'T48P',
+                   'T49B', 'T50K']
+
 @app.route("/")
 def index():
     return jsonify({
@@ -50,108 +57,6 @@ def index():
         },
         "data": None
     }), 200
-
-#PLANTS FUNCTION
-@app.route('/plants', methods=['GET'])
-def get_all_plants():
-    valid_id = ['T01P', 'T02D', 'T03M', 'T04J', 'T05S', 'T06B', 'T07K', 'T08T', 'T09T', 'T10B', 'T11S', 'T12A', 'T13J', 'T14K', 'T15W', 'T16B',
-                 'T17K', 'T18J', 'T19K', 'T20C', 'T21N', 'T22K', 'T23R', 'T24A', 'T25L', 'T26K', 'T27C', 'T28S', 'T29K', 'T30S', 'T31A', 'T32P',
-                 'T33D', 'T34J', 'T35B', 'T36K', 'T37U', 'T38B', 'T39M', 'T40K', 'T41M', 'T42J', 'T43J', 'T44M', 'T45S', 'T46C', 'T47J', 'T48P', 'T49B', 'T50K']
-
-    plant_ref = db.reference('jenis_tanaman')
-    all_plants = plant_ref.get()
-
-    if all_plants:
-        plant_list = [{"id": key, **value} for key, value in all_plants.items()]
-        return jsonify({
-            "status": {
-                "code": 200,
-                "message": "Success get all plants",
-            },
-            "data": plant_list
-        }), 200
-    else:
-        return jsonify({
-            "status": {
-                "code": 404,
-                "message": "Plants not found",
-            }
-        }), 404
-
-
-@app.route('/plants/<string:id_tanaman>', methods=['GET'])
-def get_plant_or_all_plants(id_tanaman):
-    valid_id = ['T01P', 'T02D', 'T03M', 'T04J', 'T05S', 'T06B', 'T07K', 'T08T', 'T09T', 'T10B', 'T11S', 'T12A', 'T13J', 'T14K', 'T15W', 'T16B',
-                 'T17K', 'T18J', 'T19K', 'T20C', 'T21N', 'T22K', 'T23R', 'T24A', 'T25L', 'T26K', 'T27C', 'T28S', 'T29K', 'T30S', 'T31A', 'T32P',
-                 'T33D', 'T34J', 'T35B', 'T36K', 'T37U', 'T38B', 'T39M', 'T40K', 'T41M', 'T42J', 'T43J', 'T44M', 'T45S', 'T46C', 'T47J', 'T48P', 'T49B', 'T50K']
-
-    plant_ref = db.reference('jenis_tanaman')
-
-    if not id_tanaman:  # Jika id_tanaman tidak diberikan
-        all_plants = plant_ref.get()
-
-        if all_plants:
-            return jsonify({
-                "status": {
-                    "code": 200,
-                    "message": "Success get all plants",
-                },
-                "data": [{"id": key, **value} for key, value in all_plants.items()]
-            }), 200
-        else:
-            return jsonify({
-                "status": {
-                    "code": 404,
-                    "message": "Plants not found",
-                }
-            }), 404
-
-    elif id_tanaman in valid_id:  # Jika id_tanaman adalah ID yang valid
-        plant_data = plant_ref.child(id_tanaman).get()
-
-        if plant_data:
-            data_requested = request.args.get('data_requested')
-
-            if data_requested:
-                if data_requested in ['deskripsi_tanaman', 'nama', 'url_gambar', 'url_produk']:
-                    response_data = plant_data.get(data_requested)
-                    return jsonify({
-                        "status": {
-                            "code": 200,
-                            "message": f"Success get {data_requested} based on ID {id_tanaman}",
-                        },
-                        "data": [response_data]  # Mengembalikan data yang diminta dalam format JSON array
-                    }), 200
-                else:
-                    return jsonify({
-                        "status": {
-                            "code": 400,
-                            "message": "Invalid data_requested parameter"
-                        }
-                    }), 400
-
-            return jsonify({
-                "status": {
-                    "code": 200,
-                    "message": f"Success get detail based on ID {id_tanaman}",
-                },
-                "data": [{"id": id_tanaman, **plant_data}]  # Mengembalikan data tanaman dalam bentuk array objek
-            }), 200
-        else:
-            return jsonify({
-                "status": {
-                    "code": 404,
-                    "message": "Plant ID not found",
-                }
-            }), 404
-
-    else:
-        return jsonify({
-            "status": {
-                "code": 400,
-                "message": "Invalid request or Plant ID not found"
-            }
-        }), 400
 
 #API SOIL TYPE
 @app.route('/soil', methods=['GET'])
@@ -281,7 +186,7 @@ def get_soil_by_id(id_tanah):
                 "code": 200,
                 "message": f"Success get detail for soil {id_tanah}",
             },
-            "data": [soil_data]  # Mengembalikan data dalam bentuk array objek
+            "data": [soil_data] 
         }), 200
 
     else:
@@ -293,6 +198,41 @@ def get_soil_by_id(id_tanah):
         }), 404
 
 
+@app.route('/soil/<string:soil_id>/rekomendasi_bibit', methods=['GET'])
+def get_soil_recommendation(soil_id=None):
+    if soil_id and soil_id in valid_ids: 
+        soil_ref = db.reference('tanah').child(soil_id)
+        soil_data = soil_ref.get()
+
+        rekomendasi_bibit = soil_data.get('rekomendasi_bibit', {}) 
+
+        data = []
+        for plant_id, plant_data in rekomendasi_bibit.items():
+            plant_data['id_tanaman'] = plant_id
+            data.append(plant_data)
+
+        if data: 
+            return jsonify({
+                "status": {
+                    "code": 200,
+                    "message": f"Success get rekomendasi bibit for soil {soil_id}",
+                },
+                "data": data
+            }), 200
+        else: 
+            return jsonify({
+                "status": {
+                    "code": 404,
+                    "message": f"No rekomendasi bibit found for soil {soil_id}"
+                }
+            }), 404
+    else:
+        return jsonify({
+            "status": {
+                "code": 404,
+                "message": "Soil ID not found or invalid"
+            }
+        }), 404
 
 # MAIN FUNCTION
 @app.route('/upload', methods=['POST'])
