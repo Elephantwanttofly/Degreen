@@ -15,6 +15,8 @@ The soil classification model is based on soil_classification_model2.h5. The lab
 
 # **Documentation APIs**
 <br>
+[For details regarding the endpoints, please refer to the provided documentation](https://github.com/Elephantwanttofly/Degreen/tree/main/CloudComputing)](https://documenter.getpostman.com/view/30136639/2s9Ykq8gJj)
+<br>
 GET index
 https://degreen-apps-polsmieylq-as.a.run.app
 <br>
