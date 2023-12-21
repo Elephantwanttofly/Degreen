@@ -13,4 +13,14 @@ The application uses Firebase Realtime Database to store predictions. Make sure 
 # **Model Details**
 The soil classification model is based on soil_classification_model2.h5. The labels used by the model are stored in labels.txt.
 
+# **Documentation APIs**
+GET index
+https://degreen-apps-polsmieylq-as.a.run.app
+This endpoint provides a simple welcome message indicating the successful fetching of the API. It serves as a starting point to check if the API is operational.
+
+GET All Soils
+https://degreen-apps-polsmieylq-as.a.run.app/soil
+Endpoint
+GET /soil
+Description : Retrieve information about all valid soil types. This endpoint provides a list of soils, including their IDs and additional details.
 
