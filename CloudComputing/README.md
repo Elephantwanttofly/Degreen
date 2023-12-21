@@ -16,6 +16,7 @@ The soil classification model is based on soil_classification_model2.h5. The lab
 # **Documentation APIs**
 GET index
 https://degreen-apps-polsmieylq-as.a.run.app
+<br>
 This endpoint provides a simple welcome message indicating the successful fetching of the API. It serves as a starting point to check if the API is operational.
 
 GET All Soils
@@ -25,3 +26,18 @@ Endpoint
 GET /soil
 Description : Retrieve information about all valid soil types. This endpoint provides a list of soils, including their IDs and additional details.
 
+GET Soil by ID
+https://degreen-apps-polsmieylq-as.a.run.app/soil/001
+<br>
+Endpoint
+GET /soil/{id_tanah}
+Description :Retrieve detailed information about a specific soil type identified by its ID (id_tanah). You can specify the type of data requested, such as recommendations for planting, soil description, and more.
+
+Request
+Method: GET
+Query Parameters
+<ol>
+  <li> data_requested (optional): Specify the type of data to be requested (e.g., rekomendasi_bibit, deskripsi_tanah, jenis, url_tanah). </li>
+  <li> plant_id (optional): Specify the plant ID for more detailed information. </li>
+  <li> get_detail (optional): Specify the detail to be retrieved </li>
+</ol>
