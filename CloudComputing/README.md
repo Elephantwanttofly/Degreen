@@ -62,3 +62,14 @@ Request
 <li>Method: POST</li>
 <li>Body: Form-data with key image and the image file.</li>
 Body : formdata
+
+Running the Application
+<br>
+To run the Degreen backend application, execute the following command:
+
+python app.py
+The application will start running on http://localhost:8080/.
+
+Make sure you have the required dependencies installed and the necessary configurations set before running the application.
+
+That's it! You have successfully set up and documented the backend application.
