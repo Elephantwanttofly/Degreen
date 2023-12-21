@@ -17,7 +17,7 @@ app.config['LABELS_FILE'] = 'labels.txt'
 
 cred = credentials.Certificate('degreen-project-capstone-firebase-adminsdk-k7s32-dab5bf5bc6.json')
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'  
+    'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'
 })
 firebase_ref = db.reference('/predictions')
 
@@ -60,18 +60,34 @@ def index():
 
 #API SOIL TYPE
 @app.route('/soil', methods=['GET'])
-def get_all_soils():
-    valid_ids = ['001', '002', '003', '004', '005'] 
+def get_soil_list():
+    soil_list = []
 
-    soils_ref = db.reference('tanah')
-    all_soils = soils_ref.get()
+    for soil_id in valid_ids:
+        soil_ref = db.reference('tanah').child(soil_id)
+        soil_detail = soil_ref.get()
 
-    if all_soils:
-        soil_list = [{"id": key, **value} for key, value in all_soils.items() if key in valid_ids]
+        rekomendasi_bibit = soil_detail.get('rekomendasi_bibit')
+        if rekomendasi_bibit:
+            rekomendasi_list = [{"id_tanaman": key, **value} for key, value in rekomendasi_bibit.items()]
+
+            url_tanah = soil_detail.get('url_tanah')  
+
+            soil_data = {
+                "id": soil_id,
+                "deskripsi_tanah": soil_detail.get("deskripsi_tanah"),
+                "jenis": soil_detail.get("jenis"),
+                "rekomendasi_bibit": rekomendasi_list,
+                "url_tanah": url_tanah
+            }
+
+            soil_list.append(soil_data)
+
+    if soil_list:
         return jsonify({
             "status": {
                 "code": 200,
-                "message": "Success get all soils",
+                "message": "Success get soil list",
             },
             "data": soil_list
         }), 200
@@ -83,112 +99,41 @@ def get_all_soils():
             }
         }), 404
 
+@app.route('/soil/<string:soil_id>', methods=['GET'])
+def get_soil_by_id(soil_id):
+    if soil_id in valid_ids:
+        soil_ref = db.reference('tanah').child(soil_id)
+        soil_detail = soil_ref.get()
 
-@app.route('/soil/<string:id_tanah>', methods=['GET'])
-def get_soil_by_id(id_tanah):
-    valid_ids = ['001', '002', '003', '004', '005']
+        rekomendasi_bibit = soil_detail.get('rekomendasi_bibit')
+        if rekomendasi_bibit:
+            rekomendasi_list = [{"id_tanaman": key, **value} for key, value in rekomendasi_bibit.items()]
 
-    if id_tanah in valid_ids:
-        soil_ref = db.reference('tanah').child(id_tanah)
-        soil_data = soil_ref.get()
+            # Mendapatkan URL tanah dari database Firebase
+            url_tanah = soil_detail.get('url_tanah')  
+            
+            soil_data = {
+                "id": soil_id,
+                "deskripsi_tanah": soil_detail.get("deskripsi_tanah"),
+                "jenis": soil_detail.get("jenis"),
+                "rekomendasi_bibit": rekomendasi_list,
+                "url_tanah": url_tanah 
+            }
 
-        data_requested = request.args.get('data_requested')
-        plant_id = request.args.get('plant_id')
-        get_detail = request.args.get('get_detail')
-
-        if data_requested:
-            if data_requested == 'rekomendasi_bibit':
-                rekomendasi_bibit = soil_data.get('rekomendasi_bibit')
-                if rekomendasi_bibit:
-                  
-                    if not plant_id:
-                        rekomendasi_list = [{"plant_id": key, **value} for key, value in rekomendasi_bibit.items()]
-                        return jsonify({
-                            "status": {
-                                "code": 200,
-                                "message": f"Success get rekomendasi bibit for soil {id_tanah}",
-                            },
-                            "data": rekomendasi_list
-                        }), 200
-                    else:
-                        if plant_id in rekomendasi_bibit:
-                            response_data = rekomendasi_bibit[plant_id]
-
-                            if get_detail:
-                                detail_data = response_data.get(get_detail)
-                                if detail_data:
-                                    return jsonify({
-                                        "status": {
-                                            "code": 200,
-                                            "message": f"Success get {get_detail} for plant_id {plant_id} in soil {id_tanah}",
-                                        },
-                                        "data": [detail_data]  
-                                    }), 200
-                                else:
-                                    return jsonify({
-                                        "status": {
-                                            "code": 404,
-                                            "message": f"No {get_detail} found for plant_id {plant_id} in soil {id_tanah}"
-                                        }
-                                    }), 404
-
-                            return jsonify({
-                                "status": {
-                                    "code": 200,
-                                    "message": f"Success get rekomendasi bibit for plant_id {plant_id} in soil {id_tanah}",
-                                },
-                                "data": [response_data] 
-                            }), 200
-                        else:
-                            return jsonify({
-                                "status": {
-                                    "code": 404,
-                                    "message": f"No rekomendasi bibit found for plant_id {plant_id} in soil {id_tanah}"
-                                }
-                            }), 404
-
-                else:
-                    return jsonify({
-                        "status": {
-                            "code": 404,
-                            "message": f"No rekomendasi bibit found for soil {id_tanah}"
-                        }
-                    }), 404
-
-            elif data_requested in ['deskripsi_tanah', 'jenis', 'url_tanah']:
-                requested_data = soil_data.get(data_requested)
-                if requested_data:
-                    return jsonify({
-                        "status": {
-                            "code": 200,
-                            "message": f"Success get {data_requested} for soil {id_tanah}",
-                        },
-                        "data": [requested_data]  
-                    }), 200
-                else:
-                    return jsonify({
-                        "status": {
-                            "code": 404,
-                            "message": f"No {data_requested} found for soil {id_tanah}"
-                        }
-                    }), 404
-
-            else:
-                return jsonify({
-                    "status": {
-                        "code": 400,
-                        "message": "Invalid data_requested parameter"
-                    }
-                }), 400
-
-        return jsonify({
-            "status": {
-                "code": 200,
-                "message": f"Success get detail for soil {id_tanah}",
-            },
-            "data": [soil_data] 
-        }), 200
-
+            return jsonify({
+                "status": {
+                    "code": 200,
+                    "message": f"Success get soil {soil_id}",
+                },
+                "data": soil_data
+            }), 200
+        else:
+            return jsonify({
+                "status": {
+                    "code": 404,
+                    "message": f"No rekomendasi bibit found for soil {soil_id}"
+                }
+            }), 404
     else:
         return jsonify({
             "status": {
@@ -196,7 +141,6 @@ def get_soil_by_id(id_tanah):
                 "message": "Soil ID not found"
             }
         }), 404
-
 
 @app.route('/soil/<string:soil_id>/rekomendasi_bibit', methods=['GET'])
 def get_soil_recommendation(soil_id=None):
