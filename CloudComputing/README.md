@@ -59,5 +59,5 @@ Description : Upload an image for soil type prediction. The API utilizes a pre-t
 
 Request 
 <li>Method: POST</li>
-<li></li>Body: Form-data with key image and the image file.</li>
+<li>Body: Form-data with key image and the image file.</li>
 Body : formdata
