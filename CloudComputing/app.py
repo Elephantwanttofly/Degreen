@@ -17,7 +17,7 @@ app.config['LABELS_FILE'] = 'labels.txt'
 
 cred = credentials.Certificate('degreen-project-capstone-firebase-adminsdk-k7s32-dab5bf5bc6.json')
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'  # Ganti dengan URL database Firebase Anda
+    'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'  
 })
 firebase_ref = db.reference('/predictions')
 
@@ -61,7 +61,7 @@ def index():
 #API SOIL TYPE
 @app.route('/soil', methods=['GET'])
 def get_all_soils():
-    valid_ids = ['001', '002', '003', '004', '005']  # Daftar ID tanah yang valid
+    valid_ids = ['001', '002', '003', '004', '005'] 
 
     soils_ref = db.reference('tanah')
     all_soils = soils_ref.get()
@@ -100,7 +100,7 @@ def get_soil_by_id(id_tanah):
             if data_requested == 'rekomendasi_bibit':
                 rekomendasi_bibit = soil_data.get('rekomendasi_bibit')
                 if rekomendasi_bibit:
-                    # Jika ada rekomendasi_bibit tetapi tanpa plant_id yang disediakan
+                  
                     if not plant_id:
                         rekomendasi_list = [{"plant_id": key, **value} for key, value in rekomendasi_bibit.items()]
                         return jsonify({
@@ -122,7 +122,7 @@ def get_soil_by_id(id_tanah):
                                             "code": 200,
                                             "message": f"Success get {get_detail} for plant_id {plant_id} in soil {id_tanah}",
                                         },
-                                        "data": [detail_data]  # Mengembalikan data dalam bentuk array objek
+                                        "data": [detail_data]  
                                     }), 200
                                 else:
                                     return jsonify({
@@ -137,7 +137,7 @@ def get_soil_by_id(id_tanah):
                                     "code": 200,
                                     "message": f"Success get rekomendasi bibit for plant_id {plant_id} in soil {id_tanah}",
                                 },
-                                "data": [response_data]  # Mengembalikan data dalam bentuk array objek
+                                "data": [response_data] 
                             }), 200
                         else:
                             return jsonify({
@@ -163,7 +163,7 @@ def get_soil_by_id(id_tanah):
                             "code": 200,
                             "message": f"Success get {data_requested} for soil {id_tanah}",
                         },
-                        "data": [requested_data]  # Mengembalikan data dalam bentuk array objek
+                        "data": [requested_data]  
                     }), 200
                 else:
                     return jsonify({
