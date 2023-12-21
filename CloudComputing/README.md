@@ -20,6 +20,7 @@ This endpoint provides a simple welcome message indicating the successful fetchi
 
 GET All Soils
 https://degreen-apps-polsmieylq-as.a.run.app/soil
+<br>
 Endpoint
 GET /soil
 Description : Retrieve information about all valid soil types. This endpoint provides a list of soils, including their IDs and additional details.
