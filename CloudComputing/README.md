@@ -15,7 +15,6 @@ The soil classification model is based on soil_classification_model2.h5. The lab
 
 # **Documentation APIs**
 <br>
-Untuk rincian lebih lanjut, silakan lihat [dokumentasi di sini](https://documenter.getpostman.com/view/30136639/2s9Ykq8gJj).
 GET index
 https://degreen-apps-polsmieylq-as.a.run.app
 <br>
