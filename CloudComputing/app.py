@@ -17,7 +17,7 @@ app.config['LABELS_FILE'] = 'labels.txt'
 
 cred = credentials.Certificate('degreen-project-capstone-firebase-adminsdk-k7s32-dab5bf5bc6.json')
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'  # Ganti dengan URL database Firebase Anda
+    'databaseURL': 'https://degreen-project-capstone-default-rtdb.asia-southeast1.firebasedatabase.app/'
 })
 firebase_ref = db.reference('/predictions')
 
@@ -41,171 +41,142 @@ def predict_image(image):
     confidence_score = predictions[0][index]
     return class_name, confidence_score
 
-#PLANTS FUNCTION
-@app.route('/plants/<string:id_tanaman>', methods=['GET'])
-def get_plant_or_all_plants(id_tanaman):
-    valid_id = ['T01P', 'T02D', 'T03M', 'T04J', 'T05S', 'T06B', 'T07K', 'T08T', 'T09T', 'T10B', 'T11S', 'T12A', 'T13J', 'T14K', 'T15W', 'T16B',
-                 'T17K', 'T18J', 'T19K', 'T20C', 'T21N', 'T22K', 'T23R', 'T24A', 'T25L', 'T26K', 'T27C', 'T28S', 'T29K', 'T30S', 'T31A', 'T32P',
-                 'T33D', 'T34J', 'T35B', 'T36K', 'T37U', 'T38B', 'T39M', 'T40K', 'T41M', 'T42J', 'T43J', 'T44M', 'T45S', 'T46C', 'T47J', 'T48P', 'T49B', 'T50K']
+valid_ids = ['001', '002', '003', '004', '005']
+valid_id = ['T01P', 'T02D', 'T03M', 'T04J', 'T05S', 'T06B', 'T07K', 'T08T', 'T09T', 'T10B', 'T11S', 'T12A',
+                   'T13J', 'T14K', 'T15W', 'T16B', 'T17K', 'T18J', 'T19K', 'T20C', 'T21N', 'T22K', 'T23R', 'T24A',
+                   'T25L', 'T26K', 'T27C', 'T28S', 'T29K', 'T30S', 'T31A', 'T32P', 'T33D', 'T34J', 'T35B', 'T36K',
+                   'T37U', 'T38B', 'T39M', 'T40K', 'T41M', 'T42J', 'T43J', 'T44M', 'T45S', 'T46C', 'T47J', 'T48P',
+                   'T49B', 'T50K']
 
-    if id_tanaman == "plants":
-        plant_ref = db.reference('jenis_tanaman')
-        all_plants = plant_ref.get()
+@app.route("/")
+def index():
+    return jsonify({
+        "status": {
+            "code": 200,
+            "message": "success fetching api",
+        },
+        "data": None
+    }), 200
 
-        if all_plants:
-            plants_array = [{"id_tanaman": key, "data": value} for key, value in all_plants.items()]
+#API SOIL TYPE
+@app.route('/soil', methods=['GET'])
+def get_soil_list():
+    soil_list = []
 
-            return jsonify({
-                "status": {
-                    "code": 200,
-                    "message": "Success get all plants",
-                },
-                "data": plants_array
-            }), 200
-        else:
-            return jsonify({
-                "status": {
-                    "code": 404,
-                    "message": "Plants not found",
-                }
-            }), 404
+    for soil_id in valid_ids:
+        soil_ref = db.reference('tanah').child(soil_id)
+        soil_detail = soil_ref.get()
 
-    elif id_tanaman in valid_id:
-        plant_ref = db.reference('jenis_tanaman').child(id_tanaman)
-        plant_data = plant_ref.get()
+        rekomendasi_bibit = soil_detail.get('rekomendasi_bibit')
+        if rekomendasi_bibit:
+            rekomendasi_list = [{"id_tanaman": key, **value} for key, value in rekomendasi_bibit.items()]
 
-        data_requested = request.args.get('data_requested')
-        if data_requested:
-            if data_requested in ['deskripsi_tanaman', 'id_tanaman', 'nama', 'url_gambar', 'url_produk']:
-                response_data = plant_data.get(data_requested)
-                return jsonify({
-                    "status": {
-                        "code": 200,
-                        "message": f"Success get {data_requested} based on ID {id_tanaman}"
-                    },
-                    "data": response_data
-                }), 200
-            else:
-                return jsonify({
-                    "status": {
-                        "code": 400,
-                        "message": "Invalid data_requested parameter"
-                    }
-                }), 400
+            url_tanah = soil_detail.get('url_tanah')  
 
-        plant_array = [{"id_tanaman": id_tanaman, "data": plant_data}]
+            soil_data = {
+                "id": soil_id,
+                "deskripsi_tanah": soil_detail.get("deskripsi_tanah"),
+                "jenis": soil_detail.get("jenis"),
+                "rekomendasi_bibit": rekomendasi_list,
+                "url_tanah": url_tanah
+            }
+
+            soil_list.append(soil_data)
+
+    if soil_list:
         return jsonify({
             "status": {
                 "code": 200,
-                "message": f"Success get detail based on ID {id_tanaman}",
+                "message": "Success get soil list",
             },
-            "data": plant_array
+            "data": soil_list
         }), 200
     else:
         return jsonify({
             "status": {
-                "code": 400,
-                "message": "Invalid request or Plant ID not found"
+                "code": 404,
+                "message": "Soils not found",
             }
-        }), 400
+        }), 404
 
+@app.route('/soil/<string:soil_id>', methods=['GET'])
+def get_soil_by_id(soil_id):
+    if soil_id in valid_ids:
+        soil_ref = db.reference('tanah').child(soil_id)
+        soil_detail = soil_ref.get()
 
-@app.route('/plants/search', methods=['GET'])
-def search_plants_by_keyword():
-    keyword = request.args.get('keyword')
+        rekomendasi_bibit = soil_detail.get('rekomendasi_bibit')
+        if rekomendasi_bibit:
+            rekomendasi_list = [{"id_tanaman": key, **value} for key, value in rekomendasi_bibit.items()]
 
-    if not keyword:
-        return jsonify({
-            "status": {
-                "code": 400,
-                "message": "Bad request, please input keyword for search"
+            # Mendapatkan URL tanah dari database Firebase
+            url_tanah = soil_detail.get('url_tanah')  
+            
+            soil_data = {
+                "id": soil_id,
+                "deskripsi_tanah": soil_detail.get("deskripsi_tanah"),
+                "jenis": soil_detail.get("jenis"),
+                "rekomendasi_bibit": rekomendasi_list,
+                "url_tanah": url_tanah 
             }
-        }), 400
 
-    plants_ref = db.reference('jenis_tanaman')
-    all_plants_data = plants_ref.get()
-
-    if all_plants_data:
-        matched_plants = {}
-        for plant_id, plant_data in all_plants_data.items():
-            plant_name = plant_data.get('nama', '').lower()
-            if keyword.lower() in plant_name:
-                matched_plants[plant_id] = plant_data
-
-        if matched_plants:
             return jsonify({
                 "status": {
                     "code": 200,
-                    "message": f"Found matching plants for the keyword '{keyword}'",
+                    "message": f"Success get soil {soil_id}",
                 },
-                "data": matched_plants
+                "data": soil_data
             }), 200
         else:
             return jsonify({
                 "status": {
                     "code": 404,
-                    "message": f"No matching plants found for the keyword '{keyword}'"
+                    "message": f"No rekomendasi bibit found for soil {soil_id}"
                 }
             }), 404
+    else:
+        return jsonify({
+            "status": {
+                "code": 404,
+                "message": "Soil ID not found"
+            }
+        }), 404
 
-# API SOIL TYPE
-@app.route('/soil/<string:id_tanah>', methods=['GET'])
-def get_soil_by_id(id_tanah):
-    valid_ids = ['001', '002', '003', '004', '005']
+@app.route('/soil/<string:soil_id>/rekomendasi_bibit', methods=['GET'])
+def get_soil_recommendation(soil_id=None):
+    if soil_id and soil_id in valid_ids: 
+        soil_ref = db.reference('tanah').child(soil_id)
+        soil_data = soil_ref.get()
 
-if id_tanah in valid_ids:
-    soil_ref = db.reference('tanah').child(id_tanah)
-    soil_data = soil_ref.get()
+        rekomendasi_bibit = soil_data.get('rekomendasi_bibit', {}) 
 
-    data_requested = request.args.get('data_requested')
+        data = []
+        for plant_id, plant_data in rekomendasi_bibit.items():
+            plant_data['id_tanaman'] = plant_id
+            data.append(plant_data)
 
-    if data_requested:
-        if data_requested in ['deskripsi_tanah', 'jenis', 'nama_tanah', 'url_tanah', 'rekomendasi_bibit']:
-            response_data = soil_data.get(data_requested)
+        if data: 
             return jsonify({
                 "status": {
                     "code": 200,
-                    "message": f"Success get {data_requested} for soil {id_tanah}"
+                    "message": f"Success get rekomendasi bibit for soil {soil_id}",
                 },
-                "data": response_data
+                "data": data
             }), 200
-        else:
+        else: 
             return jsonify({
                 "status": {
-                    "code": 400,
-                    "message": "Invalid data_requested parameter"
+                    "code": 404,
+                    "message": f"No rekomendasi bibit found for soil {soil_id}"
                 }
-            }), 400
-
-    soil_array = [{"id_tanah": id_tanah, "data": soil_data}]
-    return jsonify({
-        "status": {
-            "code": 200,
-            "message": f"Success get detail for soil {id_tanah}",
-        },
-        "data": soil_array
-    }), 200
-
-soils_ref = db.reference('tanah')
-all_soils_data = soils_ref.get()
-
-if all_soils_data:
-    soils_array = [{"id_tanah": key, "data": value} for key, value in all_soils_data.items()]
-    return jsonify({
-        "status": {
-            "code": 200,
-            "message": "Success get all soils",
-        },
-        "data": soils_array
-    }), 200
-else:
-    return jsonify({
-        "status": {
-            "code": 404,
-            "message": "No soils found"
-        }
-    }), 404
-
+            }), 404
+    else:
+        return jsonify({
+            "status": {
+                "code": 404,
+                "message": "Soil ID not found or invalid"
+            }
+        }), 404
 
 # MAIN FUNCTION
 @app.route('/upload', methods=['POST'])
@@ -238,7 +209,7 @@ def upload_image():
 
         class_name, confidence_score = predict_image(image_path)
 
-        confidence_percentage = int(float(confidence_score) * 100)
+        confidence_percentage = "{:.2%}".format(confidence_score)
 
         firebase_ref.push({
             'image_name': image.filename,

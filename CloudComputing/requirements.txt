@@ -7,9 +7,11 @@ certifi==2023.11.17
 cffi==1.16.0
 charset-normalizer==3.3.2
 click==8.1.7
+colorama==0.4.6
 cryptography==41.0.7
 firebase-admin==6.3.0
 Flask==3.0.0
+Flask-HTTPAuth==4.8.0
 flatbuffers==23.5.26
 gast==0.5.4
 google-api-core==2.15.0
@@ -57,9 +59,10 @@ rsa==4.9
 six==1.16.0
 tensorboard==2.15.1
 tensorboard-data-server==0.7.2
-tensorflow==2.15.0.post1
-tensorflow-estimator==2.15.0
-tensorflow-io-gcs-filesystem==0.34.0
+tensorflow
+tensorflow-estimator
+tensorflow-intel
+tensorflow-io-gcs-filesystem==0.31.0
 termcolor==2.4.0
 typing_extensions==4.9.0
 uritemplate==4.1.1
