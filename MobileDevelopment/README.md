@@ -8,6 +8,10 @@ DeGreen is an application that can detect soil type and recommend plants that ar
 
 We build our android application to give information to users about soil and result Detection From Machine learning which we get from cloud API. Our application workflow starts with accessing a phone camera which can take photos of the soil, then the application can provide information about what plants are suitable for the soil. For each plant, there will be a link to purchase that plant.
 
+### DOWNLOAD APK
+
+https://drive.google.com/file/d/1RYIy619RhUeuNpjEZErGo2jQnBl4v9m3/view?usp=sharing
+
 ### LIBRARY
 
 - Camera (1.2.3)
