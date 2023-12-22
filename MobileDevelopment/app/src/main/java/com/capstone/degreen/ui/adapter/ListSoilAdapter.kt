@@ -1,16 +1,18 @@
 package com.capstone.degreen.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.capstone.degreen.data.model.Constant
 import com.capstone.degreen.data.model.DataItem
 import com.capstone.degreen.databinding.ItemRowSoilBinding
 
-class ListSoilAdapter(var listsoil : ArrayList<DataItem>, var listener : OnAdapterListener) :
+class ListSoilAdapter(var listsoil: ArrayList<DataItem>, var listener: OnAdapterListenerSoil) :
     RecyclerView.Adapter<ListSoilAdapter.ViewHolder>() {
+    private val TAG: String = "ListSoilAdapter"
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ListSoilAdapter.ViewHolder {
         return ViewHolder(
             ItemRowSoilBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
@@ -21,6 +23,11 @@ class ListSoilAdapter(var listsoil : ArrayList<DataItem>, var listener : OnAdapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val soil = listsoil[position]
         holder.bind(soil)
+        val urlSoil = Constant.BASE_URL + soil.urlTanah
+
+        Glide.with(holder.itemView.context)
+            .load(urlSoil)
+            .into(holder.view.ivItemImgSoil)
 
         holder.view.itemSoil.setOnClickListener {
             listener.onClick(soil)
@@ -34,15 +41,14 @@ class ListSoilAdapter(var listsoil : ArrayList<DataItem>, var listener : OnAdapt
         }
     }
 
-    fun setData(newMovie: List<DataItem>) {
+    fun setData(newSoil: List<DataItem>) {
         listsoil.clear()
-        listsoil.addAll(newMovie)
+        listsoil.addAll(newSoil)
         notifyDataSetChanged()
     }
 
-    interface OnAdapterListener{
+    interface OnAdapterListenerSoil{
         fun onClick(soil : DataItem)
     }
-
 
 }

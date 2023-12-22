@@ -70,9 +70,10 @@
                 android:textSize="12sp"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/aluvial_soil_is"
                 app:layout_constraintTop_toBottomOf="@+id/description_soil"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/recommendation"
@@ -103,10 +104,20 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.616" />
+                app:layout_constraintTop_toBottomOf="@+id/recommendation"/>
+
+            <TextView
+                android:id="@+id/warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Warning_Detail"
+                android:gravity="center"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recommendation"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

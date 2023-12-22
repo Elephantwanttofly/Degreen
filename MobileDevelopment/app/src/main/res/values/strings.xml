@@ -28,6 +28,9 @@
     <string name="prediction_accuracy">Prediksi Akurasi :</string>
     <string name="accuracy">70%</string>
     <string name="back_home">Kembali ke Home</string>
+    <string name="Warning">Respons Error, Mohon Login kembali</string>
+    <string name="Warning_Detail">Respon Error, mohon kembali ke Home \n Untuk Refresh Kembali</string>
+    <string name="menujuProduk">Menuju Produk</string>
     <string-array name="data_name_plant">
         <item>Bibit Semangka</item>
         <item>Bibit Jeruk</item>

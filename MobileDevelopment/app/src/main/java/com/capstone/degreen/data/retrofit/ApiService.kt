@@ -1,7 +1,8 @@
 package com.capstone.degreen.data.retrofit
 
+
 import com.capstone.degreen.data.model.ListSoilResponse
-import com.capstone.degreen.data.model.Prediction
+import com.capstone.degreen.data.model.PlantDetailResponse
 import com.capstone.degreen.data.model.SoilDetailResponse
 import com.capstone.degreen.data.model.UploadResponse
 import okhttp3.MultipartBody
@@ -21,6 +22,11 @@ interface ApiService {
     fun getSoilDetails(
         @Path("id") id: String
     ): Call<SoilDetailResponse>
+
+    @GET("soil/{id}/rekomendasi_bibit")
+    fun getPlantDetails(
+        @Path("id") id: String
+    ): Call<PlantDetailResponse>
 
     @Multipart
     @POST("upload")

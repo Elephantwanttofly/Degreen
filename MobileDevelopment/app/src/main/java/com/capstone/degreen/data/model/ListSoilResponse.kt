@@ -20,7 +20,7 @@ data class DataItem(
 	val deskripsiTanah: String? = null,
 
 	@field:SerializedName("rekomendasi_bibit")
-	val rekomendasiBibit: RekomendasiBibit? = null,
+	val rekomendasiBibit: List<RekomendasiBibitItem?>? = null,
 
 	@field:SerializedName("jenis")
 	val jenis: String? = null,
@@ -28,12 +28,5 @@ data class DataItem(
 	@field:SerializedName("id")
 	val id: String? = null
 )
-
-
-
-
-
-
-
 
 

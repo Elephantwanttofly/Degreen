@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.degreen.data.DataSoil
+import com.capstone.degreen.data.model.Constant
 import com.capstone.degreen.data.model.DataItem
 import com.capstone.degreen.data.model.ListSoilResponse
 import com.capstone.degreen.data.retrofit.ApiConfig
@@ -28,6 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var rvsoil : RecyclerView
     private lateinit var listSoilAdapter: ListSoilAdapter
     private val list = ArrayList<DataSoil>()
+    private val TAG: String = "ListSoilAdapter"
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -46,7 +48,6 @@ class HomeFragment : Fragment() {
         val username = sharedPreferences.getString("user_name", "GUEST")
 
 
-
         // Tampilkan nama pengguna di TextView atau elemen UI lainnya
         val textViewUsername = binding.nameHome
         textViewUsername.text = username
@@ -61,21 +62,13 @@ class HomeFragment : Fragment() {
         rvsoil.setHasFixedSize(true)
         
         showRecyclerList()
-
-        with(binding) {
-            searchView.setupWithSearchBar(searchBar)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
         getSoil()
     }
 
     private fun showRecyclerList() {
-        listSoilAdapter = ListSoilAdapter(arrayListOf(), object : ListSoilAdapter.OnAdapterListener{
+        listSoilAdapter = ListSoilAdapter(arrayListOf(), object : ListSoilAdapter.OnAdapterListenerSoil{
             override fun onClick(soil: DataItem) {
-                SOIL_ID = soil.id!!
+                Constant.SOIL_ID = soil.id!!
 
                 val intent = Intent(context, SoilDetailActivity::class.java)
                 startActivity(intent)
@@ -88,7 +81,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun getSoil(){
+    private fun getSoil(){
         showLoading(true)
         ApiConfig.getApiService().getSoil()
             .enqueue(object : Callback<ListSoilResponse> {
@@ -104,6 +97,7 @@ class HomeFragment : Fragment() {
                 override fun onFailure(call: Call<ListSoilResponse>, t: Throwable) {
                     showLoading(false)
                     Log.d(MainActivity.TAG, "errorbro : ${t.toString()}")
+                    binding.warning.visibility = View.VISIBLE
                 }
 
             })
@@ -111,6 +105,7 @@ class HomeFragment : Fragment() {
 
     private fun showData(response: ListSoilResponse) {
         listSoilAdapter.setData(response.data)
+        Log.d(TAG, "Ambilsemuadata : ${response.data}")
     }
 
     private fun showLoading(loading: Boolean) {
@@ -128,9 +123,5 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object{
-        var SOIL_ID: String = "soil_id"
     }
 }
