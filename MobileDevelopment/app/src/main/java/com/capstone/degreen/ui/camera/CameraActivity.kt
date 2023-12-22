@@ -41,9 +41,6 @@ class CameraActivity : AppCompatActivity() {
     private var currentImageUri: Uri? = null
     private val TAG: String = "CameraActivity"
     private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
-    private var imageFile: File? = null
-    private val PERMISSION_REQUEST_CODE = 123
-    private lateinit var viewModel: CameraViewModel
 
     private val requestPermissionLauncher =
         registerForActivityResult(

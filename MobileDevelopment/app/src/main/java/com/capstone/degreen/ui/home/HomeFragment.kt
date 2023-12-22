@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.degreen.data.DataSoil
 import com.capstone.degreen.data.model.Constant
 import com.capstone.degreen.data.model.DataItem
 import com.capstone.degreen.data.model.ListSoilResponse
@@ -28,7 +27,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var rvsoil : RecyclerView
     private lateinit var listSoilAdapter: ListSoilAdapter
-    private val list = ArrayList<DataSoil>()
     private val TAG: String = "ListSoilAdapter"
     private val binding get() = _binding!!
 

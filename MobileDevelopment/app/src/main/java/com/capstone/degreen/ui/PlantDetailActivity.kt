@@ -45,10 +45,6 @@ class PlantDetailActivity : AppCompatActivity() {
                 ) {
                     showLoading(false)
                     if(response.isSuccessful){
-                        val soil = response.body()
-//                        if( soil != null){
-//                            showRecyclerList(soil)
-//                        }
                         showData(response.body()!!)
                         Log.d(TAG,"ResponPlant : ${response.body()}")
                     }
@@ -64,17 +60,37 @@ class PlantDetailActivity : AppCompatActivity() {
     }
 
     private fun showData(response: PlantDetailResponse){
+//        val firstDetailPlant: DetailPlant? = response.data.firstOrNull()
+//        if (firstDetailPlant != null) {
+//            binding.tvDetailName.text = firstDetailPlant.nama
+//            binding.tvDetailDesc.text = firstDetailPlant.deskripsiTanaman
+//            val UrlPlant = Constant.BASE_URL + firstDetailPlant.urlGambar
+//            Glide.with(this)
+//                .load(UrlPlant)
+//                .into(binding.ivDetail)
+//            binding.btnLink.setOnClickListener{
+//                openEcommerceApp(firstDetailPlant.urlProduk)
+//            }
+//        }
+
         val firstDetailPlant: DetailPlant? = response.data.firstOrNull()
+        // Memeriksa apakah ada SoilDetail yang ditemukan
         if (firstDetailPlant != null) {
-            // Mengambil urlTanah dari SoilDetail pertama
-            binding.tvDetailName.text = firstDetailPlant.nama
-            binding.tvDetailDesc.text = firstDetailPlant.deskripsiTanaman
-            val UrlPlant = Constant.BASE_URL + firstDetailPlant.urlGambar
-            Glide.with(this)
-                .load(UrlPlant)
-                .into(binding.ivDetail)
-            binding.btnLink.setOnClickListener{
-                openEcommerceApp(firstDetailPlant.urlProduk)
+            val urlGambar: String? = firstDetailPlant.urlGambar
+            val detail : String? = firstDetailPlant.deskripsiTanaman
+            val UrlPlant = Constant.BASE_URL + firstDetailPlant?.urlGambar
+
+            if (urlGambar != null && detail!= null && UrlPlant != null) {
+                binding.tvDetailName.text = firstDetailPlant?.nama
+                binding.tvDetailDesc.text = firstDetailPlant?.deskripsiTanaman
+                Glide.with(this)
+                    .load(UrlPlant)
+                    .into(binding.ivDetail)
+                binding.btnLink.setOnClickListener{
+                    openEcommerceApp(firstDetailPlant?.urlProduk)
+                }
+            } else {
+                Log.d(TAG, "error")
             }
         }
     }

@@ -48,9 +48,6 @@ class SoilDetailActivity : AppCompatActivity() {
                     showLoading(false)
                     if(response.isSuccessful){
                         val soil = response.body()
-//                        if( soil != null){
-//                            showRecyclerList(soil)
-//                        }
                         showData(response.body()!!)
                         Log.d(TAG,"ResponJadi : ${response.body()}")
                     }
